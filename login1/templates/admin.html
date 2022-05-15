@@ -1,0 +1,335 @@
+{% load static %}
+ 
+<!DOCTYPE html>
+<html class=''>
+<head>
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel = "stylesheet" href = "https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script src='https://production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/aperyon/pen/oxzpaE?depth=everything&order=popularity&page=23&q=translate&show_forks=false" />
+ 
+<style class="cp-pen-styles">html, body {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+ 
+body {
+  background: tomato;
+  
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+ 
+
+.container{
+
+    margin-left: 30px;
+
+}
+
+
+.container header {
+    width: 100%;
+    background: #FF3838;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+    padding: 10px 10px;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 10px 10px 0 0;
+  }
+
+
+.table{
+    max-width: 1000%;
+}
+
+hor_div{
+}
+
+
+.main_header header {
+    background: no-repeat;
+    padding: 30px 20px;
+    color: white;
+    margin-left:40px ;
+    font-size: 1.7em;
+    font-weight: 600;
+    
+    border-radius: 10px 10px 0 0;
+}
+
+.container table{
+  min-width: 963px;
+  background: white;
+  
+  font-family: lato;
+  position: relative;
+  color: #333;
+  
+  border-radius: 0 0 10px 10px;
+  
+}
+
+</style>
+</head>
+ 
+<body>
+
+  <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar"> 
+    <button class="w3-bar-item w3-button w3-large"
+    onclick="w3_close()">Close &times;</button>
+    <a href="#" class="w3-bar-item w3-button">Student Management</a>
+    <!--<a href="admin/get_all_librarians" class="w3-bar-item w3-button">Librarian Management</a>-->    
+    <a href="admin/add_new_student/" class="w3-bar-item w3-button">Add new Student</a>
+    <a href="admin/add_new_librarian/" class="w3-bar-item w3-button">Add new Librarian</a>
+    <a href="/" class="w3-bar-item w3-button">Logout</a>
+  </div>
+  
+  <div id="main">
+  
+  <div class="w3-teal">
+    <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+    <!--<button type="button" style = "color: white; margin-left: 1350px;" class="btn btn-link w3-transparent w3-xlarge ">Logout</button>-->
+    <a href = "/" class = "btn btn-link w3-transparent" style = "color: white; margin-left: 1350px; font-size: 18px;" >Logout</a>
+  
+  
+    
+  </div>
+
+  <div class = "main_header">  
+    <header>
+    Admin's View:- 
+    </header>
+    </div>
+    
+
+  
+ <div class = "container" > <header> Student's Data:</header> 
+    <form id = "form3" method="post" action = "">
+        {% csrf_token %}  
+        
+ <table class="table" name = "table1" id = "table1">
+   
+   <tr>
+       <th>Student username</th>
+       <th>Student name </th>
+       <th>Student department </th>
+       <th>Block/Unblock</th>
+       <th>Delete</th> 
+     </tr>
+     <tr>
+       {% for i in fetch_student_data %}
+
+      <td> <input type = "text" name = "st_username" value = "{{ i.username }}" readonly></td> 
+       
+       <td> {{i.name}}</td>
+       {% if i.department == 1%}  
+        <td> Science </td>
+
+       {% elif i.department == 2  %}
+        <td> Arts</td>
+
+       {% elif i.department == 3  %}
+        <td> Commerce</td>
+        
+       {% elif i.department == 4  %}
+       <td> Generic</td>
+       
+       {% endif %}
+
+       <td> <input type = "button"  class = "block"  name= "block" value= "Block"  /></td>
+       <td> <input type = "button"  class = "delete" name= "delete" value = "Delete" /></td>
+       
+       <td></td>
+       
+       
+     </tr>
+     
+     {% endfor %}
+    
+ </table>
+</form>
+</div>
+
+</form>
+
+<form id = "form4" method="post" action = "student_action/">
+<input type = "hidden" name = "uname"  id = "uname" value = "">
+<input type = "submit" class = "fetch" name = "fetch" value = "Submit" hidden />
+
+</form>
+
+
+
+
+
+
+<script>
+    function w3_open() {
+      document.getElementById("main").style.marginLeft = "25%";
+      document.getElementById("mySidebar").style.width = "25%";
+      document.getElementById("mySidebar").style.display = "block";
+      document.getElementById("openNav").style.display = 'none';
+    }
+    function w3_close() {
+      document.getElementById("main").style.marginLeft = "0%";
+      document.getElementById("mySidebar").style.display = "none";
+      document.getElementById("openNav").style.display = "inline-block";
+    }
+
+    
+
+    function edit_profile(){
+        document.getElementById("update").style.visibility = "visible";
+        document.getElementById("lib_username1").disabled = false;
+        document.getElementById("lib_name").disabled = false;
+        document.getElementById("lib_age").disabled = false;
+        document.getElementById("male").disabled = false;
+        document.getElementById("female").disabled = false;
+
+    }
+
+
+    
+    const flag_button = document.getElementsByClassName("block");
+    const flag_button_delete = document.getElementsByClassName("delete");
+    
+    const get_st_username = document.getElementsByName("st_username");
+    
+
+    var getuname = ''
+    var val = ''
+
+            
+    for(let i = 0; i<flag_button_delete.length; i++){
+      flag_button_delete[i].addEventListener("click", ()=>{
+
+         if(flag_button_delete[i].value == "Delete"){
+             console.log(get_st_username[i].value)
+             
+             var action = '0';
+
+             $.ajax({
+                 type: "GET",
+                 url: 'test_user2/',
+                 data: {
+                     "getuname": get_st_username[i].value,
+                     
+                 },
+                 dataType: "json",
+                 success: function (data) {
+                   
+                   if(data["flag_stu_del"] == 1 ){
+
+                     alert("Student is not deleted, Some error occured!")
+                   }
+                   else{
+                      alert("Student is deleted successfully")
+
+                   }
+                 },
+                 failure: function () {
+                     alert("failure");
+                 }
+             });
+
+
+
+
+             }
+         
+ });
+
+     } 
+
+
+
+
+            for(let i = 0; i<flag_button.length; i++){
+                 flag_button[i].addEventListener("click", ()=>{
+    
+                    if(flag_button[i].value == "Block"){
+                        console.log(get_st_username[i].value)
+                        
+                        flag_button[i].value = "Unblock";
+                        var action = '0';
+
+                        $.ajax({
+                            type: "GET",
+                            url: 'test_user/',
+                            data: {
+                                "getuname": get_st_username[i].value,
+                                
+                            },
+                            dataType: "json",
+                            success: function (data) {
+
+                                alert("Student is Blocked!")
+                            },
+                            failure: function () {
+                                alert("failure");
+                            }
+                        });
+        
+
+    
+    
+                        }
+                    else{
+                        flag_button[i].value = "Block";
+                        console.log(get_st_username[i].value)
+                        var action = '1'
+
+                        $.ajax({
+                            type: "GET",
+                            url: 'test_user1/',
+                            data: {
+                                "getuname": get_st_username[i].value,
+                                
+                            },
+                            dataType: "json",
+                            success: function (data) {
+
+                                alert("Student is unblocked!")
+                            },
+                            failure: function () {
+                                alert("failure");
+                            }
+                        });
+
+
+
+                       // getuname = get_st_username[i].value
+                        }
+            });
+    
+                } 
+                
+              
+
+
+
+    </script>
+
+
+{% if update_student_block_unblock_pass %}
+    <script>alert("Student is blocked!")</script>  
+{% endif %}
+
+{% if update_student_query_fail %}
+    <script>alert("Student data is not updated!")
+
+    </script>  
+{% endif %}
+
+
+</body>
+</html>

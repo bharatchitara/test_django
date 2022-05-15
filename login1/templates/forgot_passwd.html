@@ -1,0 +1,236 @@
+{% load static %}
+ 
+<!DOCTYPE html>
+<html class=''>
+<head>
+
+
+
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src='https://production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/aperyon/pen/oxzpaE?depth=everything&order=popularity&page=23&q=translate&show_forks=false" />
+ 
+<style class="cp-pen-styles">html, body {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+ 
+.main_header header {
+  display: block;
+  background: no-repeat;
+  padding: 30px 20px;
+  color: darkslategrey;
+  margin-left:40px ;
+  font-size: 1.7em;
+  font-family:arial;
+  font-weight: 550;
+  border-radius: 10px 10px 0 0;
+}
+
+body {
+  background: #fff;
+  
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+ 
+form {
+  background: white;
+  width: 40%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-left: 400px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+  font-family: arial;
+  position: relative;
+  color: #333;
+  border-radius: 10px;
+}
+
+
+form header {
+  background: #FF3838;
+  padding: 30px 20px;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 10px 10px 0 0;
+}
+form label {
+  margin-left: 20px;
+  display: inline-block;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  position: relative;
+}
+form label span {
+  color: #FF3838;
+  font-size: 2em;
+  position: absolute;
+  left: 2.3em;
+  top: -10px;
+}
+form input {
+  display: block;
+  width: 78%;
+  margin-left: 20px;
+  padding: 5px 20px;
+  font-size: 1em;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid #ccc;
+}
+form .help {
+  margin-left: 20px;
+  font-size: 0.8em;
+  color: #777;
+}
+
+
+form .help1 {
+  margin-top: 15px;
+  margin-left: 20px;
+  font-size: 0.8em;
+  color: orangered;
+}
+
+form .help2 {
+  margin-top: 15px;
+  margin-left: 20px;
+  font-size: 0.8em;
+  color: orangered;
+}
+
+form button {
+  position: relative;
+  margin-top: 10px;
+    
+  margin-bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-family: inherit;
+  color: white;
+  background: darkslategrey;
+  outline: none;
+  border: none;
+  padding: 5px 15px;
+  font-size: 1.3em;
+  font-weight: 400;
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.4);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+form button:hover {
+  background: #ff5252;
+}
+
+</style>
+</head>
+ 
+<body>
+
+ 
+    <form name = "form8" method="post" action="">
+        {% csrf_token %}  
+         <br>
+         <span style= "color: grey; font-family: Arial; font-size:0.9em;margin-left:20px;">If the email is registered with us already, a new password will be send to given email.</span>  
+         <br>
+         <p> </p>
+         <input type="text" id = "email"  name="email" placeholder="Enter the reset Email" required="" onblur = "emailcheck()"  />
+         <div class="help1" id = "help1" style = "display: none;">Please provide a valid email ID!</div>
+
+         <span id = "span1" style= "color: grey; font-family: Arial; font-size:0.9em;margin-left:20px;display:none;">If the email is registered with us already, a new password will be send to given email.</span>  
+         
+         
+         <p></p>
+         <button type = "button" id = "submit">Reset password</button>
+         <br>
+         <div id = "divv" style= "color: black; font-family: Arial; font-size:1em; margin-left: 20px;display:none;">A reset password is send to your given Email ID with subject line: 'LMS: Reset password'.</span>  
+        
+        </div>
+        &nbsp;
+       </form>
+       <p></p>
+       <span><a href= "/" style= "margin-left: 840px" >Return back to Login</a><span>
+
+    </body>
+
+
+
+ <script>
+
+    function emailcheck(){
+        var inputText  = document.getElementById("email");
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if(inputText.value.match(mailformat))
+        {
+          
+        document.getElementById("email").style.transition = "";
+        document.getElementById("email").style.boxShadow = "";
+        document.getElementById("help1").style.display = "none";
+    
+          return true;
+        }
+        else
+        {
+        
+        document.getElementById("email").style.transition = "box-shadow linear 1s";
+        document.getElementById("email").style.boxShadow = "0 0 20px red";
+        document.getElementById("help1").style.display = "";
+        
+        
+            return true;
+        }
+      }
+    
+
+    const resetbutton = document.getElementById("submit");
+
+    const getemail = document.getElementById("email");
+
+
+    resetbutton.addEventListener("click", ()=>{
+        
+        $.ajax({
+            type: "GET",
+            url: 'check_email_exist/',
+            data: {
+                "getemail": getemail.value,
+                
+            },
+            dataType: "json",
+            success: function (data) {
+                if(data["email_flag"] == 1 && data["trigger_email"] ==1 ){
+                    document.getElementById("divv").style.display="";
+                    document.getElementById("submit").style.display="none";
+
+                }
+
+                else{
+                    alert("failure");
+                }
+
+              },
+            
+            failure: function () {
+                console.log("failed");
+                alert("failure");
+            }
+        });
+
+    });
+
+
+
+
+    
+
+ </script>   
+</html>       
+

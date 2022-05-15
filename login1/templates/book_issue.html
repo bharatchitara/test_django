@@ -1,0 +1,263 @@
+{% load static %}
+ 
+<!DOCTYPE html>
+<html class=''>
+<head>
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src='https://production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/aperyon/pen/oxzpaE?depth=everything&order=popularity&page=23&q=translate&show_forks=false" />
+ 
+<style class="cp-pen-styles">html, body {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+ 
+body {
+  background: tomato;
+  
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+ 
+
+.container{
+
+    margin-left: 30px;
+
+}
+
+
+.container header {
+    width: 100%;
+    background: #FF3838;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+    padding: 10px 10px;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 10px 10px 0 0;
+  }
+
+
+.table{
+    max-width: 1000%;
+}
+
+hor_div{
+}
+
+
+.main_header header {
+    background: no-repeat;
+    padding: 30px 20px;
+    color: white;
+    margin-left:40px ;
+    font-size: 1.7em;
+    font-weight: 600;
+    
+    border-radius: 10px 10px 0 0;
+}
+
+.container table{
+  min-width: 963px;
+  background: white;
+  
+  font-family: lato;
+  position: relative;
+  color: #333;
+  
+  border-radius: 0 0 10px 10px;
+  
+}
+
+</style>
+</head>
+ 
+<body>
+
+  <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar"> 
+    <button class="w3-bar-item w3-button w3-large"
+    onclick="w3_close()">Close &times;</button>
+    <a href="#" class="w3-bar-item w3-button">Issue a book</a>
+    <a href="student_data" class="w3-bar-item w3-button">My profile</a>    
+    <a href="/" class="w3-bar-item w3-button">Logout</a>
+    
+  </div>
+  
+  <div id="main">
+  
+  <div class="w3-teal">
+    <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+  </div>
+
+  <div class = "main_header">  
+    <header>
+    Issue a new Book:- 
+    </header>
+    </div>
+    
+
+  
+ <div class = "container" > <header> Book's Data:</header> 
+    <form id = "form5" method="get" action = "">
+        {% csrf_token %}  
+        
+ <table class="table" name = "table1" >
+   <tr>
+       <th>Book ID</th>
+       <th>Book Name</th>
+       <th>Book Author</th>
+       <th>Department</th>
+       <th>Issue</th> 
+     </tr>
+     
+     <tr>
+       {% for i in fetch_book_data %}
+       <td> <input type = "text" name = "book_id" value = "{{ i.book_id }}" readonly></td>
+       
+       <td> {{ i.book_name }}</td>
+      
+       <td> {{ i.book_author }} </td>
+
+
+       {% if i.department == 1%}  
+        <td> Science </td>
+
+       {% elif i.department == 2  %}
+        <td> Arts</td>
+
+       {% elif i.department == 3  %}
+        <td> Commerce</td>
+        
+       {% elif i.department == 4  %}
+       <td> Generic</td>
+       
+       {% endif %}
+
+    
+       <td> <input type = "button"  class = "issue"  name= "issue" value= "Issue"  /></td>
+       
+     </tr>
+     
+     {% endfor %}
+     <tr></tr>
+ </table>
+</form>
+</div>
+
+
+<form id = "form7" method="post" action = "new_book_get/">
+  <input type = "hidden" name = "uname"  id = "uname" value = "">
+  <input type = "submit" class = "fetch" name = "fetch" value = "Submit" hidden />
+  
+  </form>
+
+
+
+<script>
+    function w3_open() {
+      document.getElementById("main").style.marginLeft = "25%";
+      document.getElementById("mySidebar").style.width = "25%";
+      document.getElementById("mySidebar").style.display = "block";
+      document.getElementById("openNav").style.display = 'none';
+    }
+    function w3_close() {
+      document.getElementById("main").style.marginLeft = "0%";
+      document.getElementById("mySidebar").style.display = "none";
+      document.getElementById("openNav").style.display = "inline-block";
+    }
+
+
+    function edit_profile(){
+        document.getElementById("update").style.visibility = "visible";
+        document.getElementById("lib_username1").disabled = false;
+        document.getElementById("lib_name").disabled = false;
+        document.getElementById("lib_age").disabled = false;
+        document.getElementById("male").disabled = false;
+        document.getElementById("female").disabled = false;
+
+    }
+
+ 
+    
+const flag_button = document.getElementsByClassName("issue");
+const get_book_id = document.getElementsByName("book_id");
+const uname_from_Locstorage = localStorage.getItem("user")
+
+    
+    
+            for(let i = 0; i<flag_button.length; i++){
+                 flag_button[i].addEventListener("click", ()=>{
+    
+                    if(flag_button[i].value == "Issue"){
+                        console.log(get_book_id[i].value)
+                        
+                        
+                        
+                    
+
+                        $.ajax({
+                            type: "GET",
+                            url: 'test_book_allocate/',
+                            data: {
+                                "getbookid": get_book_id[i].value,
+                                "uname_local":uname_from_Locstorage
+
+                                
+                            },
+                            dataType: "json",
+                            success: function (data) {
+
+                                if(data["flag"] == 1 ){
+                                  alert("Either requested book is already allocated or the student already have 3 books allocated!");
+
+                                }
+                                else{
+
+                                alert("Book is issued!")
+                                }
+                            },
+                            failure: function () {
+
+                                alert("Either requested book is already allocated or the student already have 3 books allocated!");
+                            }
+                        });
+
+                        if(data["flag"] == 0 ){
+                        flag_button[i].value = "Allocated";
+                        flag_button[i].disabled = true;
+                        }  
+
+    
+    
+                        }
+                    
+            });
+    
+                } 
+                
+              
+
+
+
+    </script>
+
+
+{% if update_allotment_pass %}
+    <script>alert("Book is Issued!")</script>  
+{% endif %}
+
+{% if update_student_query_fail %}
+    <script>alert("Book is not issued!")
+
+    </script>  
+{% endif %}
+
+
+</body>
+</html>

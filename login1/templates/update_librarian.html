@@ -1,0 +1,218 @@
+{% load static %}
+ 
+<!DOCTYPE html>
+<html class=''>
+<head>
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src='https://production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/aperyon/pen/oxzpaE?depth=everything&order=popularity&page=23&q=translate&show_forks=false" />
+ 
+<style class="cp-pen-styles">html, body {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+ 
+body {
+  background: tomato;
+  
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+ 
+form {
+  margin-top: 20px;
+  margin-left: 40px;
+  background: white;
+  width: 80%;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+  font-family: lato;
+  position: relative;
+  color: #333;
+  border-radius: 10px;
+}
+
+form header {
+  background: #FF3838;
+  padding: 30px 20px;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 10px 10px 0 0;
+}
+form label {
+  margin-left: 20px;
+  display: inline-block;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+
+form label span {
+  color: #FF3838;
+  font-size: 2em;
+  position: absolute;
+  left: 2.3em;
+  top: -10px;
+}
+form input {
+  display: inline-block;
+  width: 48%;
+  margin-left: 20px;
+  padding: 3px 20px;
+  font-size: 0.8em;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid #ccc;
+}
+
+form input[type = radio] {
+    display : inline-block;
+    width: 5%;
+    margin-Left : 10 px;
+    padding: 3px 20px;
+     font-size: 0.8em;
+
+}
+
+form .help {
+  margin-left: 20px;
+  font-size: 0.8em;
+  color: #777;
+}
+form button {
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-family: inherit;
+  color: white;
+  background: #FF3838;
+  outline: none;
+  border: none;
+  padding: 5px 15px;
+  font-size: 1.3em;
+  font-weight: 400;
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.4);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+form button:hover {
+  background: #ff5252;
+}
+
+hor_div{
+}
+
+.main_header header {
+    background: no-repeat;
+    padding: 30px 20px;
+    color: white;
+    margin-left:40px ;
+    font-size: 1.7em;
+    font-weight: 600;
+    border-radius: 10px 10px 0 0;
+}
+
+
+table{
+  margin-left: 40px;
+  background: white;
+  width: 50%;
+  max-width: 90%;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+  font-family: lato;
+  position: relative;
+  color: #333;
+  border-radius: 10px;
+
+}
+
+</style>
+</head>
+ 
+<body>
+
+  <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar"> 
+    <button class="w3-bar-item w3-button w3-large"
+    onclick="w3_close()">Close &times;</button>
+    <a href="add_books/" class="w3-bar-item w3-button">Add new books</a>
+    <a href="/user_login/books_data" class="w3-bar-item w3-button">View/update existing Books data</a>
+    <a href="/" class="w3-bar-item w3-button">Logout</a>
+  </div>
+  
+  <div id="main">
+  
+  <div class="w3-teal">
+    <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+  </div>
+
+
+  <div class = "main_header">  
+    <header>
+    Updating profile:- 
+    </header>
+    </div>
+      
+  
+<form method="post" action="">
+    {% csrf_token %}  
+        
+    <header style = "padding: 30px 60px 10px">Data of Librarian :    </header> 
+ 
+    <label>Username</label>
+    <input type="text"  name="lib_username" placeholder="Username" readonly/>
+    <p></p> 
+    <label>Full Name </label>
+    <input type="text" name="lib_name" placeholder="Full Name" required="" value = "{{ lib_name }}" />
+    <p></p> 
+
+    <label>Age</label>
+    <input type="text" name="lib_age" placeholder="Enter Age" required="" value = "{{ lib_age }}" style = "margin-left:63px" />
+    <p> </p>
+
+    <label>Gender</label>
+    
+
+    <input type="radio" id ="male" name="lib_gender" value = "Male" {% if lib_gender != 'F'%} checked {% endif %} style = "margin-left:20px">
+    <label for = "male" style = "margin-left: 0px" >Male</label>
+    
+    <input type="radio" id ="female" name="lib_gender" value = "Female" {% if lib_gender != 'M'%} checked {% endif %}>
+    <label for = "female" style = "margin-left: 0px">Female</label>
+    <p></p>
+    <p></p>
+    
+<button type ="submit"  onclick = "check_query()" >update </button>
+
+</form>
+
+
+<script>
+    function w3_open() {
+      document.getElementById("main").style.marginLeft = "25%";
+      document.getElementById("mySidebar").style.width = "25%";
+      document.getElementById("mySidebar").style.display = "block";
+      document.getElementById("openNav").style.display = 'none';
+    }
+    function w3_close() {
+      document.getElementById("main").style.marginLeft = "0%";
+      document.getElementById("mySidebar").style.display = "none";
+      document.getElementById("openNav").style.display = "inline-block";
+    }
+
+
+    var username = localStorage.getItem("user");
+    document.getElementById("lib_username").innerHTML = username
+    
+
+    </script>
+
+</body>
+</html>
