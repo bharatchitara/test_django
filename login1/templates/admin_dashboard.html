@@ -36,7 +36,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Notification</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="/">Logout</a></li>
+                        <li><a class="dropdown-item" href="logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -163,35 +163,38 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card mb-4">
+                        <div class="card mb-4" style = "width:80%;">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Books History:
+                                All active users:
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" >
                                     <thead>
                                         <tr>
                                             <th>Username</th>
-                                            <th>Book name</th>
-                                            <th>issued on</th>
+                                            
+                                            <th>Role</th>
                                             
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Username</th>
-                                            <th>Book name</th>
-                                            <th>Issued on</th>
+                                        
+                                            <th>Role</th>
                                             
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <tr>
-                                            {% for i in books_data %}
-                                            <td> {{ i.stu_username }}</td>
-                                            <td>{{ i.book1 }}</td>
-                                            <td>{{ i.book1_allocatedon }}</td>
+                                            {% for i in allusers %}
+                                            <td> {{ i.username }}</td>
+                                            {%if i.role == 1 %}
+                                            <td>Student</td>
+                                            {%elif i.role == 2 %}
+                                            <td>Librarian</td>
+                                            {% endif %}
                                             
                                         </tr>
                                         {% endfor %}

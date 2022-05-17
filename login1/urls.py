@@ -28,6 +28,9 @@ urlpatterns = [
     
     path("admin_dashboard/librarian_management/addnew/add",views.insert_new_librarian),
     
+    path("logout",views.logout),
+    path("dev",views.dev),
+    
     
    ####
    

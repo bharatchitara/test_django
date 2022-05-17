@@ -129,11 +129,15 @@ def user_login(request):
                 name,age,gender,dropdown_dept,book1,book2,book3 = student_update(username)
                 #print(book1)
                 
+                user = username
+                username1 = '"'+user+'"'
+                query  = 'select *,last_login from login1_tbl_authentication where username = '+username1
                 
-                last_login_1 = datetime.datetime.now()
+                last_login = ''
                 
-                update_time = tbl_Authentication.loginauth_objects.filter(username =username ).update(last_login = last_login_1)
-                
+                #print(query)
+                for p in tbl_Authentication.loginauth_objects.raw(query):
+                    last_login = p.last_login
             
                 fetch_books_data = book_history.objects.all()
                 
@@ -141,7 +145,7 @@ def user_login(request):
                 
                 
                 
-                return render(request, 'student_dashboard.html',{'u_name':username,'last_login':last_login_1,'books_count':get_books_count,'month_list':month_list,'final_book_count_list':book_count_in_dict,'books_data':books_data})
+                return render(request, 'student_dashboard.html',{'u_name':username,'last_login':last_login,'books_count':get_books_count,'month_list':month_list,'final_book_count_list':book_count_in_dict,'books_data':books_data})
             
                 
 
@@ -186,8 +190,11 @@ def user_login(request):
                 new_lib_added = tbl_Authentication.loginauth_objects.filter(role = 2, created_on__gte= one_months_past ).count()
                 print(new_lib_added)
                 
-   
-                return render(request, 'admin_dashboard.html',{'last_login':last_login,"new_students_added":new_students_added,"new_lib_added":new_lib_added,'u_name':username,'month_list':month_list,'student_count':student_count_in_dict,'lib_count':lib_count_in_dict})
+                
+                allusers = tbl_Authentication.loginauth_objects.filter(role__lt = 3 )
+                
+                
+                return render(request, 'admin_dashboard.html',{'last_login':last_login,'allusers':allusers,"new_students_added":new_students_added,"new_lib_added":new_lib_added,'u_name':username,'month_list':month_list,'student_count':student_count_in_dict,'lib_count':lib_count_in_dict})
 
                 #return render(request, 'admin.html',{'fetch_student_data':fetch_student_data})
         
@@ -522,17 +529,23 @@ def student_dashboard(request):
                 
     #print(book_count_in_dict)
                     
-    last_login_1 = datetime.datetime.now()
+    user = my_username
+    username1 = '"'+user+'"'
+    query  = 'select *,last_login from login1_tbl_authentication where username = '+username1
     
-    update_time = tbl_Authentication.loginauth_objects.filter(username = my_username ).update(last_login = last_login_1)
+    last_login = ''
     
+    #print(query)
+    for p in tbl_Authentication.loginauth_objects.raw(query):
+        last_login = p.last_login
+
 
     fetch_books_data = book_history.objects.all()
     
     get_books_count = book_history.objects.filter(stu_username = my_username).count()
                 
     
-    return render(request, 'student_dashboard.html',{'u_name': my_username,'last_login':last_login_1,'books_count':get_books_count,'month_list':month_list,'final_book_count_list':book_count_in_dict,'books_data':books_data})
+    return render(request, 'student_dashboard.html',{'u_name': my_username,'last_login':last_login,'books_count':get_books_count,'month_list':month_list,'final_book_count_list':book_count_in_dict,'books_data':books_data})
             
  
 def admin_dashboard(request):
@@ -569,8 +582,9 @@ def admin_dashboard(request):
     print(new_lib_added)
     
     
+    allusers = tbl_Authentication.loginauth_objects.filter(role__lt = 3 )
     
-    return render(request, 'admin_dashboard.html',{'last_login':last_login,"new_students_added":new_students_added,"new_lib_added":new_lib_added,'u_name':my_username,'month_list':month_list,'student_count':student_count_in_dict,'lib_count':lib_count_in_dict})
+    return render(request, 'admin_dashboard.html',{'last_login':last_login,'allusers':allusers, "new_students_added":new_students_added,"new_lib_added":new_lib_added,'u_name':my_username,'month_list':month_list,'student_count':student_count_in_dict,'lib_count':lib_count_in_dict})
 
 
 def students(request):
@@ -1267,3 +1281,16 @@ def new_signup(request):
     
     #print(flag_success_signup)
     return JsonResponse(data)
+
+
+def logout(request):
+    username1 = my_username
+    
+    time = datetime.datetime.now()
+    
+    update_last_login = tbl_Authentication.loginauth_objects.filter(username = username1).update(last_login = time)
+    
+    return render(request,'logout.html')
+
+def dev(request):
+    return render(request,'devinfo.html')
