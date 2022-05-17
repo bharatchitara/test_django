@@ -167,7 +167,12 @@ form button:hover {
   <input type="text" id = "username"  name="username" placeholder="Username" required="" onblur = "emailcheck()"  />
   <div class="help1" id = "help1" style = "display: none;">Please provide a valid email ID! </div>
   <label>Password </label>
-  <input type="password" id = "passwd" name="password" placeholder="Password" required="" onclick = "passwdcheck()" />
+  <input type="password" id = "passwd" name="password" placeholder="Password" required="" onchange = "passwdcheck()" />
+
+  <label class="checkbox-inline" style= "width: 30%; margin-top:5px; padding-left:1px;">
+    <input type="checkbox"  value="showpwd" style = "width: 40%;" onclick= "enablepwd()">Show password
+  </label>
+
  
   <div class="help2" id = "help2" style = "display: none;">The Password should contain: 
     <br>&nbsp&nbsp&nbsp min 8 characters.
@@ -177,7 +182,7 @@ form button:hover {
     <br>&nbsp&nbsp&nbsp atleast one special character(! @ # $ % *) 
     
   </div>
-
+  <p></p>
   <a href = "forgot" style = "margin-left: 25px">forgot password?</a>
   <a href = "signup" style = "margin-left: 220px">Return to Signup</a>
   
@@ -241,6 +246,17 @@ form button:hover {
    }
 
   }
+
+  function enablepwd(){
+    var x = document.getElementById("passwd");
+  if (x.type == "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+
 </script>
 
 </body>

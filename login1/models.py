@@ -14,6 +14,7 @@ class tbl_Authentication(models.Model):
     is_active = models.IntegerField(null=True)
     role = models.IntegerField(null = False, default='1')
     last_login = models.DateTimeField(auto_now= True)
+    created_on = models.DateTimeField(auto_now=True)
  
     def __str__(self):
         return self.username

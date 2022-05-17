@@ -13,7 +13,21 @@ urlpatterns = [
     #path('user_login/',views.user_login,name="user_login"),
     
     path("student_data",views.update_student),
+    path("dashboard",views.student_dashboard),   #dashboard of student 
     path("book_issue",views.book_issue),
+    path("stu_profile",views.stu_profile),
+    
+    path("admin_dashboard",views.admin_dashboard),
+    path("admin_dashboard/student_management",views.student_management),
+    path("admin_dashboard/librarian_management",views.librarian_management),
+    
+    path("admin_dashboard/student_management/addnew",views.addnew_student),
+    path("admin_dashboard/student_management/addnew/add",views.insert_new_student),
+    
+    path("admin_dashboard/librarian_management/addnew",views.getnew_librarian),
+    
+    path("admin_dashboard/librarian_management/addnew/add",views.insert_new_librarian),
+    
     
    ####
    

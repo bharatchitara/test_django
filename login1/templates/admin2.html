@@ -55,12 +55,12 @@
                                 Dashboard
                             </a>
 
-                            <a class="nav-link" href="/admin_dashboard/student_management" id = "admin_list1">
+                            <a class="nav-link" href="#" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Student management
                             </a>
 
-                            <a class="nav-link" href="#" id = "admin_list1">
+                            <a class="nav-link" href="/admin_dashboard/librarian_management" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Librarian management
                             </a>
@@ -82,9 +82,10 @@
                 <main>
                     <div class="container-fluid px-4">
                       <div style = "display: block;">
-                      <h2 class="mt-4">Librarian management:
-                        <a href="/admin_dashboard/librarian_management/addnew" class="btn btn-secondary float-right" style = "float: right" role="button">Add new Librarian</a>
-                     
+                      <h2 class="mt-4">Student management:
+                      
+                     <!-- <button type = "button" class = "btn btn-secondary float-right" style = "float: right" type= "submit">Add new student</button>-->
+                      <a href="/admin_dashboard/student_management/addnew" class="btn btn-secondary float-right" style = "float: right" role="button">Add new student</a>
                       </h2>  
                     </div>
                     <p></p>
@@ -94,18 +95,18 @@
                       <div class="card mb-4">
                         <div class="card-header">
                           <i class="fas fa-table me-1"></i>
-                          Existing Librarian:
+                          Existing Students:
                       </div>
                       <div class="card-body">                                 
-                      <form  id = "form12" method="post" action = "">
+                      <form  id = "form3" method="post" action = "">
                           {% csrf_token %}  
                           
                     <table class="table" name = "table1" >
                       <thead>
                         <tr>
-                          <th>Librarian username</th>
+                          <th>Student username</th>
                           <th>Student name </th>
-                          
+                          <th>Student department </th>
                           <th>Block/Unblock</th>
                           <th>Delete</th> 
                             
@@ -115,11 +116,29 @@
                     
                       <tbody>
                       <tr>
-                        {% for i in fetch_librarian_data %}
-                        <td> <input type = "text" name = "lib_username" value = "{{ i.lib_username }}" readonly style = "border: none; outline: none;" ></td>
+                        {% for i in fetch_student_data %}
+                        <td> <input type = "text" name = "st_username" value = "{{ i.username }}" readonly style = "border: none; outline: none;" ></td>
                         
-                        <td> {{ i.lib_name }}</td>
+                        <td> {{ i.name }}</td>
 
+                          {% if i.department == 1%}  
+                            <td> Science </td>
+
+                          {% elif i.department == 2  %}
+                            <td> Arts</td>
+
+                          {% elif i.department == 3  %}
+                            <td> Commerce</td>
+                            
+                          {% elif i.department == 4  %}
+                          <td> Generic</td>
+
+                          {% elif i.department == null  %}
+                          <td> Not allocated by Admin</td>
+                          
+                          {% endif %}
+                                            
+                        
                           <td> <input type = "button"  class = "block"  name= "block" value= "Block" /></td>
                           <td> <input type = "button"  class = "delete"  name= "delete" value = "Delete" /></td>
 
@@ -173,7 +192,7 @@
 
           //console.log(flag_button_delete)
           
-          const get_st_username = document.getElementsByName("lib_username");
+          const get_st_username = document.getElementsByName("st_username");
 
           console.log(get_st_username)
           
@@ -202,10 +221,10 @@
                          
                          if(data["flag_stu_del"] == 1 ){
       
-                           alert("Student "+get_st_username[i].value+ " is not deleted, Some error occured!")
+                           alert("Student "+get_st_username[i].value+" is not deleted, Some error occured!")
                          }
                          else{
-                            alert("Student "+get_st_username[i].value+" is deleted successfully!")
+                            alert("Student "+get_st_username[i].value+" is deleted successfully")
       
                          }
                        },
@@ -244,7 +263,7 @@
                                   dataType: "json",
                                   success: function (data) {
       
-                                      alert("Librarian "+get_st_username[i].value+ " is Blocked!")
+                                      alert("Student "+get_st_username[i].value+" is Blocked!")
                                   },
                                   failure: function () {
                                       alert("failure");
@@ -270,7 +289,7 @@
                                   dataType: "json",
                                   success: function (data) {
       
-                                      alert("Librarian "+get_st_username[i].value+ " is Unblocked!")
+                                      alert("Student "+get_st_username[i].value+" is unblocked!")
                                   },
                                   failure: function () {
                                       alert("failure");
