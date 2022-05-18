@@ -81,6 +81,8 @@ class books_data(models.Model):
     description  = models.CharField(max_length = 200)
     department  = models.IntegerField(null = False)
     location = models.IntegerField(null = False)
+    added_on = models.DateTimeField(auto_now=True)
+    last_changed = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.book_name

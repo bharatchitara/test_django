@@ -17,7 +17,7 @@ urlpatterns = [
     path("book_issue",views.book_issue),
     path("stu_profile",views.stu_profile),
     
-    path("admin_dashboard",views.admin_dashboard),
+    path("admin_dashboard",views.admin_dashboard),   #admin dashboard
     path("admin_dashboard/student_management",views.student_management),
     path("admin_dashboard/librarian_management",views.librarian_management),
     
@@ -28,8 +28,16 @@ urlpatterns = [
     
     path("admin_dashboard/librarian_management/addnew/add",views.insert_new_librarian),
     
+    path("librarian_dashboard",views.librarian_dashboard),    #lib dashboard
+    
+    path("lib_profile",views.lib_profile),
+    
+    path("lib_update",views.lib_update),
+    
     path("logout",views.logout),
     path("dev",views.dev),
+    
+    
     
     
    ####
@@ -39,7 +47,7 @@ urlpatterns = [
    
     
     #path("user_login/update_librarian_data/",views.UpdateLibrariandata),
-    re_path(r'update_librarian_data/',views.UpdateLibrariandata),
+    #re_path(r'update_librarian_data/',views.UpdateLibrariandata),
 
     path("user_login/books_data/",views.Updatebooksdata),
     re_path(r'add_books/new', views.newbooks),

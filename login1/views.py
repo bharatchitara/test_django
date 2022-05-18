@@ -102,7 +102,7 @@ def user_login(request):
         # else:
         #     print('tyfosd')
                 
-        print(book_count_in_dict)
+        #print(book_count_in_dict)
         
         # books_data = book_history.objects.values_list('stu_username','book1','book1_allocatedon').filter(stu_username = username)
         # print(books_data)   
@@ -115,6 +115,11 @@ def user_login(request):
         student_count_in_dict  = student_count_by_month()
     
         lib_count_in_dict = lib_count_by_month()
+        
+        book_added_in_last6 = books_count_by_month()
+        
+        print("books added ln121")
+        print(book_added_in_last6)
     
         
          
@@ -150,24 +155,24 @@ def user_login(request):
                 
 
             elif user is not NONE and user.role == 2 and user.is_active == 1 and flag_valid_email == 1 :
-                lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(username)
-                # print(lib_username)
-                # print(lib_name)
-                # print(lib_age)
-                # print(lib_gender)
                 
-                return render(request, 'librarian.html',{'lib_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender})
+                lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(username)
+                
+                last_login,new_books_added,book_less_than_10copies = librarian_data_for_dashboard(username)
+                
+                
+                books_history = book_history.objects.all()
+                
+                print(last_login,new_books_added,book_less_than_10copies)
+                
+                return render(request,'librarian_dashboard.html',{'u_name':username,'books_history':books_history,'lib_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender,'last_login':last_login,'new_books_added':new_books_added,'book_less_than_10copies':book_less_than_10copies,'book_added_in_last6':book_added_in_last6,'month_list':month_list})
+                
+                #return render(request, 'librarian.html',{'lib_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender})
 
             
             elif user is not NONE and user.role == 3 and user.is_active  == 1 and flag_valid_email == 1 :
                 fetch_student_data =  student_data.Studentdata_objects.all()
                 
-                
-                #print(fetch_student_data)
-                
-                #last_login_1 = datetime.datetime.now()
-                
-                #update_time = tbl_Authentication.loginauth_objects.filter(username = username).update(last_login = last_login_1)
                 
                 
                 user = 'admin@spanidea.com'
@@ -218,6 +223,54 @@ def stu_profile(request):
     
     return render(request, 'dashboard.html',
                               {'username': my_username,'name':st_name,'age':st_age,'gender':st_gender,'department':st_dept,'book1':book1,'book2':book2,'book3':book3})
+    
+    
+def lib_profile(request):
+    
+    lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(my_username)
+    
+    
+    return render(request,'lib_profile.html',{'lib_fetch_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender})
+
+
+def librarian_data_for_dashboard(username):
+    
+    user = username
+    
+    username1 = '"'+user+'"'
+    query  = 'select *,last_login from login1_tbl_authentication where username = '+username1
+    
+    last_login = ''
+    
+    for p in tbl_Authentication.loginauth_objects.raw(query):
+        last_login = p.last_login
+    
+    
+    one_months_past = date.today() + relativedelta(months=-1)
+    #print(one_months_past)
+    
+    new_books_added = books_data.objects.filter(added_on__gte= one_months_past ).count()
+    #print(new_books_added)
+    
+    
+    book_less_than_10copies = books_data.objects.filter(total_count__lte = 10).count()
+    #print(book_less_than_10copies)
+    
+    month_list = []
+    month_list= calculate_month_name()
+    
+    #books_count_in_dict = books_count_by_month()
+    
+    
+    ###################
+    #print(books_count_in_dict)
+    
+    
+    #return last_login,new_books_added,book_less_than_10copies,books_count_in_dict
+    return last_login,new_books_added,book_less_than_10copies
+         
+    
+    
     
     
 def student_update(username):
@@ -513,7 +566,83 @@ def lib_count_by_month():
 
 
   
- ## test view 
+def books_count_by_month():
+    
+    month_list = []
+    month_list= calculate_month_name()
+    
+    month_num = []
+    month_count = []
+    
+    dict= {1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[],9:[],10:[],11:[],12:[]}
+    
+    #print(month_list)
+    
+    book_count_by_month = []
+        
+    six_months_past = date.today() + relativedelta(months=-6)
+    
+    getdate = books_data.objects.values_list('added_on',flat =True).filter(added_on__gte = six_months_past )
+   
+    print(getdate.query)
+
+    for i in range(len(getdate)):
+        #print(getdate[i])
+        MonthName = getdate[i].strftime("%B")
+        print(MonthName)
+        
+        for j in range(len(month_list)):
+            if(str(month_list[j]) == MonthName):
+                    #print(j)
+                    
+                query = 'select *, EXTRACT(MONTH FROM added_on) as "extract",count(*) as "count" from login1_books_data where added_on >= CURDATE()- interval 180 day group by EXTRACT(MONTH FROM added_on)'
+                
+                print(query)
+                
+                for p in books_data.objects.raw(query):
+                        
+                    #print(p.extract,p.count)
+                    #dict['3'].append(p.count)
+                    month_num.append(p.extract)
+                    month_count.append(p.count) 
+                    
+                    continue
+                #print(month_num)
+        break
+    #print("this data")
+    
+    #dict[month_num].append(month_count)
+    
+    
+    for i in range(len(month_num)):
+        #print(month_num[i])
+        #print(month_count[i])
+        dict[month_num[i]].append(month_count[i])
+        
+        
+    month_numbers = []
+    for i in range(0,6):
+        months = date.today() + relativedelta(months=-i)
+        #print(months)
+        currentMonthName = months.strftime("%m")
+        #print(currentMonthName)
+        month_numbers.append(currentMonthName)
+        
+        
+    print(month_numbers)
+    
+            
+    final_book_count_list = []
+    
+    for i in range(len(month_numbers)):
+        for key,value in dict.items():
+            if(int(month_numbers[i]) == key):
+                final_book_count_list.append(value)
+    
+        
+    return(final_book_count_list)                
+
+
  
 def student_dashboard(request):
     
@@ -585,6 +714,24 @@ def admin_dashboard(request):
     allusers = tbl_Authentication.loginauth_objects.filter(role__lt = 3 )
     
     return render(request, 'admin_dashboard.html',{'last_login':last_login,'allusers':allusers, "new_students_added":new_students_added,"new_lib_added":new_lib_added,'u_name':my_username,'month_list':month_list,'student_count':student_count_in_dict,'lib_count':lib_count_in_dict})
+
+
+
+def librarian_dashboard(request):
+    
+    month_list = []
+    month_list= calculate_month_name()
+
+    last_login,new_books_added,book_less_than_10copies = librarian_data_for_dashboard(my_username)
+    
+    book_added_in_last6 = books_count_by_month()
+    
+    books_history = book_history.objects.all()
+    
+    print(last_login,new_books_added,book_less_than_10copies)
+    
+    return render(request,'librarian_dashboard.html',{'u_name':my_username,'books_history':books_history,'last_login':last_login,'new_books_added':new_books_added,'book_less_than_10copies':book_less_than_10copies,'book_added_in_last6':book_added_in_last6,'month_list':month_list})
+                
 
 
 def students(request):
@@ -700,40 +847,43 @@ def librarian_fetch_data(username):
 
 
 
-def UpdateLibrariandata(request):
+def lib_update(request):
     
     
     print(request.GET.get('username'))
     
-    get_lib_username = request.POST.get('lib_username1')    
-    get_lib_name = request.POST.get('lib_name')
-    get_lib_age = request.POST.get('lib_age') 
-    get_lib_gender = request.POST.get('lib_gender')
+    get_lib_username = request.POST.get('username1')   
+    
+
+    get_lib_name = request.POST.get('name')
+    get_lib_age = request.POST.get('age') 
+    get_lib_gender = request.POST.get('gender')
+    
+    print(get_lib_username,get_lib_name,get_lib_age,get_lib_gender) 
     
     str_lib_gender = ''
     
     if get_lib_gender == 'Male':
-        str_lib_gender = 'F'
-    else:
         str_lib_gender = 'M'
+    else:
+        str_lib_gender = 'F'
         
     #lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(get_lib_username)
     
     try:
         update_librarian_data = librarian_data.objects.filter(lib_username = get_lib_username).update(lib_name = get_lib_name,lib_age= get_lib_age,lib_gender= str_lib_gender)
         
-        lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(my_username)
+        lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(get_lib_username)
         
-        return render(request,"librarian.html",{'update_librarian_query_pass': True , 'lib_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender})
+        return render(request,"lib_profile.html",{'update_librarian_query_pass': True , 'lib_fetch_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender})
 
     
     except:
         
         
-        #print("my username is:" +my_username)
+        lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(get_lib_username)
         
-        lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(my_username)
-        return render(request,"librarian.html",{'update_librarian_query_pass': True , 'lib_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender})
+        return render(request,"lib_profile.html",{'update_librarian_query_fail': True , 'lib_fetch_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender})
     
 
 
