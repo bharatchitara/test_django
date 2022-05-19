@@ -86,6 +86,8 @@ urlpatterns = [
     
     re_path(r'get_all_librarians',views.get_all_librarians),
     
+    path("test_page",views.test_page),
+    
     
     
    

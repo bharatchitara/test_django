@@ -15,7 +15,7 @@ from socket import AddressFamily
 from django.db.models.functions import Cast
 from django.db.models import F, Func, Value, CharField
 from typing_extensions import Self
-from urllib import request
+from urllib import request, response
 from urllib.request import Request
 from django.conf import settings
 from django.forms import DateField
@@ -1444,3 +1444,18 @@ def logout(request):
 
 def dev(request):
     return render(request,'devinfo.html')
+
+
+def test_page(request):
+    
+    data = {
+        "success": True,
+        "name": "Vaibhav",
+        "age": 20,
+        "hobbies": ["Coding", "Art", "Gaming", "Cricket", "Piano"]
+    }
+
+    return HttpResponse(json.dumps(data), content_type = "application/json")
+
+    #return response({'Success': True})
+    return render(request,'test.html',{'data':data})
