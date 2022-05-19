@@ -7,6 +7,7 @@ import secrets
 import string
 import random
 import django.contrib.auth
+from django.contrib.auth.hashers import make_password, check_password
 from pickle import NONE
 from pydoc import describe, render_doc
 from pyexpat.errors import messages
@@ -1454,6 +1455,13 @@ def test_page(request):
         "age": 20,
         "hobbies": ["Coding", "Art", "Gaming", "Cricket", "Piano"]
     }
+    
+    
+    user = tbl_Authentication.loginauth_objects.get(username = 'test_user1@gmail.com',password = 'pbkdf2_sha256$180000$El9OJDUbAm1c$ADe6qGrECUQY5V4ZWcW2Wup67UndwTmNYa+PFSiiEXs=')
+    print(user.password)
+    
+    
+    
 
     return HttpResponse(json.dumps(data), content_type = "application/json")
 

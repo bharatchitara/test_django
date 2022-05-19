@@ -10,7 +10,7 @@ class tbl_Authentication(models.Model):
     
     loginid = models.CharField(max_length=10, primary_key = True,default='101')
     username = models.CharField(max_length=50,default='')
-    password = models.CharField(max_length=50,default='')
+    password = models.CharField(max_length=350,default='')
     is_active = models.IntegerField(null=True)
     role = models.IntegerField(null = False, default='1')
     last_login = models.DateTimeField(auto_now= True)
