@@ -46,6 +46,9 @@ def base(request):
      
 
 my_username = ''   
+
+
+
  
 def user_login(request):
     
@@ -67,16 +70,6 @@ def user_login(request):
         
         
 
-        #role = request.POST.get('dropdown')
-        #get_role = 0
-        
-        # if (role == 'student'):
-        #     get_role = 1 
-        # elif(role == 'lib'):
-        #     get_role = 2 
-        # elif(role == 'admin'):
-        #     get_role = 3      
-            
         
         
         valid_email_check = username
@@ -121,8 +114,26 @@ def user_login(request):
         
         print("books added ln121")
         print(book_added_in_last6)
+        
+        correct_user = 0
     
         
+        try:
+            is_active_user = tbl_Authentication.loginauth_objects.get(username= username)
+            user_exist = 1 
+        except:
+            user_exist = 0
+            
+        if(user_exist == 1 ):
+            
+            get_password = tbl_Authentication.loginauth_objects.get(username = username)
+            print(get_password.password)
+            
+            check_password1 = check_password (password,get_password.password)
+            
+            if (check_password1 == True):
+                correct_user = 1 
+                
          
             
         try:
@@ -217,7 +228,132 @@ def user_login(request):
     else:
         return render(request, 'base.html')
     
+
+def valid_email_check(username):
+    #valid_email_check = username
+    user = username
+        
+    flag_valid_email = 0
     
+    try:
+        validate_email(user) 
+        flag_valid_email = 1
+    except:
+        print("incorrect email used")
+        flag_valid_email = 0
+    return flag_valid_email
+        
+
+def user_login1(request):
+    
+    if request.method == 'POST':
+        global my_username
+        username = request.POST.get('username')        #get username from base.html
+        
+        my_username = username                         #create a copy of username to global var
+        
+        password = request.POST.get('password')        #get passwrd from base.html
+        
+        is_valid_email = valid_email_check(username)    #checking is valid email 
+        
+        month_list = [] 
+        month_list= calculate_month_name()                #gets last 6 months name
+        
+        book_count_in_dict = month_count_calcualte()         #books count by month
+        
+        books_data = book_history.objects.filter(stu_username = username)
+        
+        student_count_in_dict  = student_count_by_month()        #students count by month
+    
+        lib_count_in_dict = lib_count_by_month()                #lib count by month
+        
+        book_added_in_last6 = books_count_by_month()            #books added in last 6 month count
+        
+        print("books added ln121")
+        print(book_added_in_last6)
+        
+        correct_user = 0
+        user_exist = 0
+        
+        try:
+            is_active_user = tbl_Authentication.loginauth_objects.get(username= username)
+            user_exist = 1
+        except:
+            user_exist = 0 
+        
+        if (user_exist == 1 ):
+            get_password = tbl_Authentication.loginauth_objects.get(username = username)
+            print(get_password.password)
+            
+            check_hash_password = check_password(password,get_password.password)
+            if (check_hash_password == True):
+                correct_user = 1 
+        
+        if(correct_user == 1 ):
+            print("correct user")
+            
+            try:
+                
+                user = tbl_Authentication.loginauth_objects.get(username = username)
+                
+                
+                if( user is not NONE and user.role == 1 and user.is_active ==1 and is_valid_email == 1):
+                    
+                    name,age,gender,dropdown_dept,book1,book2,book3 = student_update(username)
+                    
+                    print(user.last_login)
+                    last_login  = user.last_login
+                
+                    fetch_books_data = book_history.objects.all()
+                    
+                    get_books_count = book_history.objects.filter(stu_username = username).count()
+
+                    return render(request, 'student_dashboard.html',{'u_name':username,'last_login':last_login,'books_count':get_books_count,'month_list':month_list,'final_book_count_list':book_count_in_dict,'books_data':books_data})
+             
+                
+                ######lib login #####
+                elif(user is not NONE and user.role == 2 and user.is_active == 1 and is_valid_email == 1):
+                    
+                    lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(username)
+
+                    last_login,new_books_added,book_less_than_10copies = librarian_data_for_dashboard(username)
+                    
+                    books_history = book_history.objects.all()
+                    
+                    print(last_login,new_books_added,book_less_than_10copies)
+                    
+                    return render(request,'librarian_dashboard.html',{'u_name':username,'books_history':books_history,'lib_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender,'last_login':last_login,'new_books_added':new_books_added,'book_less_than_10copies':book_less_than_10copies,'book_added_in_last6':book_added_in_last6,'month_list':month_list})
+            
+                elif(user is not NONE and user.role == 3 and user.is_active  == 1 and is_valid_email == 1):
+                
+                    fetch_student_data =  student_data.Studentdata_objects.all()
+                    last_login  = user.last_login
+                    
+                    one_months_past = date.today() + relativedelta(months=-1)
+                    print(one_months_past)
+                    
+            
+                    new_students_added = tbl_Authentication.loginauth_objects.filter(role = 1,created_on__gte= one_months_past ).count()
+                    print(new_students_added)
+                
+                    new_lib_added = tbl_Authentication.loginauth_objects.filter(role = 2, created_on__gte= one_months_past ).count()
+                    print(new_lib_added)
+                    
+                
+                    allusers = tbl_Authentication.loginauth_objects.filter(role__lt = 3 )
+                    
+                    return render(request, 'admin_dashboard.html',{'last_login':last_login,'allusers':allusers,"new_students_added":new_students_added,"new_lib_added":new_lib_added,'u_name':username,'month_list':month_list,'student_count':student_count_in_dict,'lib_count':lib_count_in_dict})
+                
+                else:
+                    print("Someone tried to login and failed.")
+                    print("They used username: {} and password: {}".format(username,password))
+                    
+                    return render(request,'base.html',{'failed_login':True})
+            
+            except:
+                return render(request,'base.html',{'failed_login':True})
+
+
 def stu_profile(request):
     
     st_name,st_age,st_gender,st_dept,book1,book2,book3=student_update(my_username)
@@ -1344,6 +1480,8 @@ def check_email_exist(request):
     
     new_passwd = password_generate()
     
+    hashed = make_password(new_passwd)    #hashing of new password
+    
     check_passwd = re.match(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$",new_passwd)
     
     
@@ -1361,7 +1499,7 @@ def check_email_exist(request):
             fail_silently=False,
                 )
         
-        change_password = tbl_Authentication.loginauth_objects.filter(username = getemail).update(password = new_passwd)
+        change_password = tbl_Authentication.loginauth_objects.filter(username = getemail).update(password = hashed)
         trigger_email = 1
     #trigger_email = 1 
     data= {'email_flag': email_flag_pass, 'trigger_email': trigger_email}

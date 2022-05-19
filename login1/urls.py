@@ -90,6 +90,13 @@ urlpatterns = [
     
     
     
+    ##updating views code for login -
+    
+    path("user_login1/",views.user_login1),
+    
+    
+    
+    
    
      
 ]
