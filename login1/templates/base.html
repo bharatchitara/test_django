@@ -148,7 +148,7 @@ form button:hover {
   </div>
 
  
-<form name = "form1" method="post" action="user_login/">
+<form name = "form1" method="post" action="user_login1">
  {% csrf_token %}  
  
  <!-- <div class = "text-left">
@@ -220,7 +220,7 @@ form button:hover {
 
   function passwdcheck(){
    var inputpasswd = document.getElementById("passwd");
-   var passwd_regex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+   var passwd_regex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%#*?&])[A-Za-z\d@$!%#*?&]{8,}$/;
 
 
 
@@ -258,6 +258,10 @@ form button:hover {
 
 
 </script>
+
+{%if failed_login == True %}
+<script> alert("Username or password is invalid! Try after Sometime.")</script>
+{% endif %}
 
 </body>
 </html>

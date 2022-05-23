@@ -5,12 +5,13 @@ from login1 import views
 urlpatterns = [
     path("",views.base,name="base"),
     path("user_login/",views.user_login,name="user_login"),
+    
+    path("user_login1",views.user_login1),                             ##updated login view
     path("forgot",views.forgotpassword),
     
     path("signup",views.signup),
     
     path("user_login/getstu",views.get_all_stu),
-    #path('user_login/',views.user_login,name="user_login"),
     
     path("student_data",views.update_student),
     path("dashboard",views.student_dashboard),   #dashboard of student 
@@ -87,6 +88,11 @@ urlpatterns = [
     re_path(r'get_all_librarians',views.get_all_librarians),
     
     path("test_page",views.test_page),
+    
+    
+    
+    
+    
     
     
     

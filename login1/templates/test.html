@@ -3,7 +3,7 @@
 <head>
 
 <style>
-     .container{
+     {% comment %} .container{
         border : 1px solid;
         background-color: red;
 
@@ -12,7 +12,50 @@
         .row{
             border: 1px solid;
             background-color: blue;
-        }
+        } {% endcomment %}
+
+        body{
+            --bg-color: black;
+            --text-color: white;
+            --header-color: yellow; 
+          }
+          body.light{
+            --bg-color: white;
+            --text-color: black;
+            --header-color: blue; 
+          }
+
+          .banner{
+            background-color: var(--bg-color);
+         }
+         .primary-heading{
+            color: var(--text-color);
+         }
+
+         body {
+            --ebony-white: #0e1724;
+            --white-ebony: #fff;
+            --white-ebony-rgb: rgba(255, 255, 255, 0.5);
+            --oxford-blue-mystic: #3b4555;
+            --ebony-clay-athens-gray: #e9edf2;
+            --oxford-blue-white: #3b4555;
+            &.light {
+               --ebony-white: #ffffff;
+               --white-ebony: #0e1724;
+               --white-ebony-rgb: rgba(14, 23, 36, 0.5);
+               --oxford-blue-mystic: #e9edf2;
+               --ebony-clay-athens-gray: #3b4555;
+               --oxford-blue-white: #ffffff;
+              }
+            }
+
+            body{
+                color: var(--white-ebony);
+                background-color: var(--oxford-blue-mystic);
+               }
+               .page-detail{
+                 color: var(--ebony-clay-athens-gray);
+               }
 
 </style>
 </head>
@@ -38,6 +81,10 @@
     data2
 
 </div>
+
+<script>
+    document.classList.toggle("light")
+    </script>
 
 </body>
 </html>
