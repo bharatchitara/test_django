@@ -11,8 +11,10 @@
         <title>Dashboard - SB Admin</title>
       
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css" />
-       <!-- <link href="css/styles.css" rel="stylesheet" />-->
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link href="css/styles.css" rel="stylesheet" />-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
       
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -36,7 +38,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Notification</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="logout">Logout</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -105,38 +107,85 @@
                             <p></p>
                             
                             
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">New Books added: {{ new_books_added }}</div>
-                                    
-                                </div>
-                            </div>
+
+                            <!-- remove if not working-->
 
                             <div class="col-xl-3 col-md-6">
+                                <!-- small box -->
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body"> Copies of books less then 10 : {{ book_less_than_10copies }}</div>
+                                    <div class="container-fluid">
+                                    <p></p>
+                                    <h5>{{ new_books_added }}
                                     
-                                </div>
+                                    <svg class="svg-inline--fa fa-book" style="color: whitesmoke; font-size: 350%; float: right;" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="book" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"></path></svg>
+                                    </h5>
+                                    <p>New Books added</p>
+                                    <p></p>
+                                    </div>
+                                    <p></p>
+                                    </div>
                             </div>
 
-                            
+
                             <div class="col-xl-3 col-md-6">
+                                <!-- small box -->
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body"> Fine collected: "Upcoming"</div>
+                                    <div class="container-fluid">
+                                    <p></p>
+                                    <h5> 500
                                     
-                                </div>
+                                        <svg class="svg-inline--fa fa-rupee-sign" style="color: whitesmoke; font-size: 350%; float: right;" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="rupee-sign" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M.0003 64C.0003 46.33 14.33 32 32 32H112C191.5 32 256 96.47 256 176C256 234.8 220.8 285.3 170.3 307.7L221.7 436.1C228.3 452.5 220.3 471.1 203.9 477.7C187.5 484.3 168.9 476.3 162.3 459.9L106.3 320H64V448C64 465.7 49.67 480 32 480C14.33 480 0 465.7 0 448L.0003 64zM64 256H112C156.2 256 192 220.2 192 176C192 131.8 156.2 96 112 96H64V256zM320.8 282.2C321.3 283.3 322.2 284.8 325 287.1C332.2 292.8 343.7 297.1 362.9 303.8L364.2 304.3C380.3 309.1 402.9 317.9 419.1 332.4C429.5 340.5 437.9 351 443 364.7C448.1 378.4 449.1 393.2 446.8 408.7C442.7 436.8 426.4 457.1 403.1 469.6C381 480.7 354.9 482.1 329.9 477.6L329.7 477.5C320.4 475.8 309.2 471.8 300.5 468.6C294.4 466.3 287.9 463.7 282.7 461.6C280.2 460.6 278.1 459.8 276.4 459.1C259.9 452.7 251.8 434.2 258.2 417.7C264.6 401.2 283.1 393.1 299.6 399.5C302.2 400.5 304.8 401.5 307.5 402.6C312.3 404.5 317.4 406.5 322.9 408.6C331.7 411.9 338.2 413.1 341.6 414.6C357.2 417.5 368.3 415.5 374.5 412.4C379.4 409.9 382.5 406.3 383.5 399.3C384.5 392.4 383.7 388.8 383.1 387.1C382.4 385.4 381.3 383.5 378.6 381.2C371.7 375.4 360.4 370.8 341.6 364.2L338.6 363.1C323.1 357.7 301.6 350.2 285.3 337.2C275.8 329.7 266.1 319.7 261.5 306.3C256.1 292.8 254.9 278.2 257.2 263.1C265.6 205.1 324.2 185.1 374.1 194.2C380.1 195.5 401.4 200 409.5 202.6C426.4 207.8 435.8 225.7 430.6 242.6C425.3 259.5 407.4 268.9 390.5 263.7C385.8 262.2 368.2 258.2 362.6 257.2C347.1 254.5 336.8 256.8 329.1 260.4C323.7 263.7 321.1 267.1 320.5 272.4C319.6 278.4 320.4 281.2 320.8 282.2H320.8z"></path></svg></h5>
+                                
+                                    <p>Fine collected<p>
+                                    
+                                    </div>
+                                    <p></p>
+                                    </div>
                             </div>
 
                             <div class="col-xl-3 col-md-6">
+                                <!-- small box -->
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Books pending overdue: "Upcoming"</div>
+                                    <div class="container-fluid">
+                                    <p></p>
+                                    <h5>{{ book_less_than_10copies }}
+                                    
+                                    <svg class="svg-inline--fa fa-book" style="color: whitesmoke; font-size: 350%; float: right;" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="book" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"></path></svg>
+                                    </h5>
+                                
+                                    <p style = "font-size:15.5px;">Less then 10 copies of book<p>
+                                    
+                                    </div>
+                                    </div>
+                            </div>
+
+
+                            <div class="col-xl-3 col-md-6">
+                                <!-- small box -->
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="container-fluid">
+                                    <p></p>
+                                    <h4>upcoming
+                                    
+                                    <i class="fa-solid fa-hourglass" style="color: whitesmoke; font-size: 350%; float: right;"></i>
+                                    </h4>
+                                    
+                                
+                                    <p>Books pending overdue</p>
+                                    
+                                    
+                                    </div>
+                                    <p></p>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
-                                    
-                                </div>
+                                    </div>
                             </div>
+
+                            <!-- remove if not working-->
+
+
 
                             <div class="col-xl-3 col-md-6" style = "display:none;">
                                 <div class="card bg-success text-white mb-4">
@@ -245,7 +294,6 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
       
-        
 
         
     </body>
