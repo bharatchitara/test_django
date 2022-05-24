@@ -34,19 +34,13 @@ urlpatterns = [
     path("lib_profile",views.lib_profile),
     
     path("lib_update",views.lib_update),
+    path("books",views.books),               #view all the books related action in librarian.
     
     path("logout",views.logout),
     path("dev",views.dev),
     
-    
-    
-    
-   ####
-   
- 
+    ###
     #path("user_login/",views.student_update),
-   
-    
     #path("user_login/update_librarian_data/",views.UpdateLibrariandata),
     #re_path(r'update_librarian_data/',views.UpdateLibrariandata),
 
@@ -77,6 +71,7 @@ urlpatterns = [
     re_path(r'test_user/',views.test_user),
     
     re_path(r'test_user1/',views.test_user1),
+    re_path(r'fetch_book_data/',views.fetch_book_data),
     re_path(r'test_user2',views.test_user2),
     re_path(r'check_email_exist',views.check_email_exist),
     re_path(r'new_signup',views.new_signup),
@@ -88,4 +83,6 @@ urlpatterns = [
     re_path(r'get_all_librarians',views.get_all_librarians),
     
     path("test_page",views.test_page),
+    
+    
 ]

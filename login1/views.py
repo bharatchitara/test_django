@@ -35,7 +35,6 @@ from django.db.models import Avg,Max
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from datetime import date
-import datetime
 import dateutil
 from dateutil.relativedelta import relativedelta
 
@@ -601,9 +600,9 @@ def student_count_by_month():
     
     for i in range(len(month_num)):
         #print(month_num[i])
+        
         #print(month_count[i])
         dict[month_num[i]].append(month_count[i])
-        
         
     month_numbers = []
     for i in range(0,6):
@@ -1323,6 +1322,27 @@ def test_user(request):
     return JsonResponse(data)
 
 
+def fetch_book_data(request):
+    bookid = request.GET.get('getbookid')
+    bookname = request.GET.get('getbookname')
+    bookauthor = request.GET.get('getbookauthor')
+    total_count1 = request.GET.get('getbooktotalcount')
+    bookdesc = request.GET.get('getbookdesc')
+    booklocation = request.GET.get('getbooklocation')
+    
+    success_book_data = 0
+    
+    
+    print(bookid,bookname,bookauthor,total_count1,bookdesc,booklocation )
+    
+    try:
+        books_data.objects.filter(book_id = bookid).update(book_name = bookname, book_author= bookauthor,total_count = total_count1, description = bookdesc, location = booklocation )
+        success_book_data = 1        
+    except:
+        success_book_data = 0
+    
+    data= {"success_book_data":success_book_data}
+    return JsonResponse(data)
 
 
 def test_user1(request):
@@ -1662,3 +1682,9 @@ def test_page(request):
 
     #return response({'Success': True})
     return render(request,'base2.html',{'data':data})
+
+
+
+def books(request):
+    all_books_data = books_data.objects.all()
+    return render(request,'allbook_data.html',{'all_books_data':all_books_data})
