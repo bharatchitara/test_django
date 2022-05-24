@@ -1,0 +1,257 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html class=''>
+<head>
+
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src='https://production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/aperyon/pen/oxzpaE?depth=everything&order=popularity&page=23&q=translate&show_forks=false" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<style>
+ 
+
+.custom-centered{
+    margin:0 auto;
+    width:300px;
+   }
+
+   .center {
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  html, body {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+  }
+   
+  .main_header header {
+    display: block;
+    background: no-repeat;
+    padding: 30px 20px;
+    color: darkslategrey;
+    margin-left:40px ;
+    font-size: 1.7em;
+    font-family:arial;
+    font-weight: 550;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  body {
+    background: #fff;
+    
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
+   
+  .form {
+    background: white;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-left: 400px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+    font-family: arial;
+    position: relative;
+    color: #333;
+    border-radius: 10px;
+  }
+  
+  
+  form header {
+    background: #FF3838;
+    padding: 30px 20px;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    border-radius: 10px 10px 0 0;
+  }
+  form label {
+    margin-left: 20px;
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    position: relative;
+  }
+  form label span {
+    color: #FF3838;
+    font-size: 2em;
+    position: absolute;
+    left: 2.3em;
+    top: -10px;
+  }
+  .input {
+    display: block;
+    width: 92%;
+    position:center;
+    margin-left: 20px;
+    padding: 5px 20px;
+    font-size: 1em;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #ccc;
+  }
+  form .help {
+    margin-left: 20px;
+    font-size: 0.8em;
+    color: #777;
+  }
+  
+  
+  .check{
+    width: 10%; 
+    margin-top:5px; 
+    padding-left:1px
+
+  }
+
+  .showPwdlabel{
+    margin-left: 5px;
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    position: relative;
+
+  }
+
+  form .help1 {
+    margin-top: 15px;
+    margin-left: 20px;
+    font-size: 0.8em;
+    color: orangered;
+  }
+  
+  form .help2 {
+    margin-top: 15px;
+    margin-left: 20px;
+    font-size: 0.8em;
+    color: orangered;
+  }
+  
+  
+  form .help3 {
+    margin-top: 15px;
+    margin-left: 20px;
+    font-size: 0.8em;
+    color: orangered;
+  }
+  
+  form button {
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-family: inherit;
+    color: white;
+    background: darkslategrey;
+    outline: none;
+    border: none;
+    padding: 5px 15px;
+    font-size: 1.3em;
+    font-weight: 400;
+    border-radius: 3px;
+    box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.4);
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+  }
+  form button:hover {
+    background: #ff5252;
+  }
+  
+
+
+</style>
+</head>
+ 
+
+<body>
+
+
+    <div class="container-fluid border">
+            <div class = "col md-5">
+                <h1 style = "margin-left:3rem;">LMS<h1>
+            </div>    
+
+            <hr></hr>
+    </div>
+
+    <div class = "container-fluid">
+        <div class = "col">
+            
+            <form  name = "form1" method="post" action="user_login1" class = "custom-centered form" style = "border : 1px solid">
+                {% csrf_token %} 
+
+                <h3 style= "margin-left: 20px;">Login</h3>
+                
+                <div class="form-group">
+                  <label for="username">Email address</label>
+                  <input type="text"  id = "username"  name="username" class="form-control input" aria-describedby="emailHelp" required placeholder="Enter email" onblur = "emailcheck()"/>
+                  <div class="help1" id = "help1" style = "display: none;">Please provide a valid email ID! </div>
+  
+                </div>
+
+                <div class="form-group">
+                  <label for="passwd">Password</label>
+                  <input type="password" id = "passwd" name="password" class="form-control input" id="exampleInputPassword1" placeholder=" Enter the Password" required onchange = "passwdcheck()"/>
+                
+                  <div class="help2" id = "help2" style = "display:none;">The Password should contain: 
+                    <br>&nbsp&nbsp&nbsp min 8 characters.
+                    <br>&nbsp&nbsp&nbsp atleast one upper case letter.
+                    <br>&nbsp&nbsp&nbsp atleast one lower case letter.
+                    <br>&nbsp&nbsp&nbsp atleast one digit.
+                    <br>&nbsp&nbsp&nbsp atleast one special character(! @ # $ % *) 
+                    
+                  </div>
+                
+                </div>
+                
+                
+                
+                <div class="form-check">
+                  <input type="checkbox"  value="showpwd" class="form-check-input check" id="exampleCheck1" onclick= "enablepwd()">
+                  <label class="form-check-label showPwdlabel" for="exampleCheck1">Show Password</label>
+                </div>
+
+                <div class="form-group">
+                    <a href = "forgot" style= "margin-left: 24px;">forgot password?</a>
+                    <a href = "signup" style = "float:right; margin-right: 24px;">Return to Signup</a>
+
+                </div>
+                <div class = "row center">
+                    <button type="submit" id = "submit" class="btn btn-primary ">Login</button>
+                </div>
+                <p></p>
+              </form>
+        </div>
+           
+    </div >
+    
+    
+    
+    <script src="{% static 'js/val.js' %}"></script>
+
+{%if failed_login == True %}
+    <script> alert("Username or password is invalid! Try after Sometime.")</script>
+{% endif %}
+          
+
+</body>
+</html>

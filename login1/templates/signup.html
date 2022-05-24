@@ -17,6 +17,18 @@
   margin: 0;
   height: 100%;
 }
+
+.custom-centered{
+  margin:0 auto;
+  width:300px;
+ }
+
+ .center {
+  justify-content: center;
+  align-items: center;
+  
+}
+
  
 .main_header header {
   display: block;
@@ -86,7 +98,7 @@ form label span {
 }
 form input {
   display: block;
-  width: 78%;
+  width: 90%;
   margin-left: 20px;
   padding: 5px 20px;
   font-size: 1em;
@@ -169,7 +181,11 @@ form button:hover {
 <body>
 
 <div class= "container-fluid">
-<h1 style = "margin-left: 20px;">LMS</h1>
+  <div class = "col md-5">
+  <h1 style = "margin-left:3rem;">LMS<h1>
+</div>    
+
+<hr></hr>
 </div>
 
 <form name = "form11" id= "form11" style = "display: none;">
@@ -237,7 +253,7 @@ form button:hover {
   </div>
 
   <p></p>
-  <a href = "/" style = "margin-left: 380px">Return to Login</a>
+  <a href = "/" style = "float:right; margin-right: 4rem;">Return to Login</a>
   
   <p></p>
   <button type = "button" id = "submit">Sign Up</button>

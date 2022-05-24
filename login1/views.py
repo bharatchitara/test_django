@@ -3,6 +3,7 @@ import json
 #from pwd import struct_passwd
 import re
 import time
+import django
 import secrets
 import string
 import random
@@ -42,7 +43,7 @@ from dateutil.relativedelta import relativedelta
 
 # Create your views here.
 def base(request):
-    return render(request, 'base.html')
+    return render(request, 'base2.html')
      
 
 my_username = ''   
@@ -354,13 +355,13 @@ def user_login1(request):
                     print("Someone tried to login and failed.")
                     print("They used username: {} and password: {}".format(username,password))
                     
-                    return render(request,'base.html',{'failed_login':True})
+                    return render(request,'base2.html',{'failed_login':True})
             
             except:
-                return render(request,'base.html',{'failed_login':True})
+                return render(request,'base2.html',{'failed_login':True})
 
         else:
-            return render(request,'base.html',{'failed_login':True})
+            return render(request,'base2.html',{'failed_login':True})
 
 def stu_profile(request):
     
@@ -1660,4 +1661,4 @@ def test_page(request):
     #return HttpResponse(json.dumps(data), content_type = "application/json")
 
     #return response({'Success': True})
-    return render(request,'test.html',{'data':data})
+    return render(request,'base2.html',{'data':data})

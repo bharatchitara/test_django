@@ -13,6 +13,16 @@
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css" />
        <!-- <link href="css/styles.css" rel="stylesheet" />-->
 
+    <style>
+       .input{
+           width: 40%;
+       }
+
+        .form_label{
+            width: 90%;
+        }
+
+    </style>
       
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -36,7 +46,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Notification</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="logout">Logout</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -93,24 +103,28 @@
 <div class="container px-5 my-5">
     <form id="contactForm" method="post" action="/admin_dashboard/student_management/addnew/add">
       {% csrf_token %}
-        <div class="mb-3">
+      <div class = "row">
+          
+        <div class="col-lg-3 col-md-6 col-sm-12" >
             <label class="form-label" for="username">Username</label>
-            <input class="form-control" id="username" name = "username1" type="email" placeholder="Username" value = ""  required />
+            <input class="form-control " id="username" name = "username1" type="email" placeholder="Username" value = ""  required />
             <div class="invalid-feedback" data-sb-feedback="username:required">Username is required.</div>
             <div class="invalid-feedback" data-sb-feedback="username:email">Username Email is not valid.</div>
         </div>
+     
 
-        <div class="mb-3">
+        <div class="mb-3 col-lg-3  col-md-6 col-sm-12" >
             <label class="form-label" for="newField">Full name</label>
-            <input class="form-control" id="newField" name = "name" type="text" placeholder="Full name" value = "" required />
+            <input class="form-control " id="newField" name = "name" type="text" placeholder="Full name" value = "" required />
             <div class="invalid-feedback" data-sb-feedback="newField:required">New Field is required.</div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 col-lg-3  col-md-6 col-sm-12">
             <label class="form-label" for="age">Age</label>
-            <input class="form-control" id="age" name = "age" type="number" placeholder="Age" value = "" min = "15" max = "99" required />
+            <input class="form-control " id="age" name = "age" type="number" placeholder="Age" value = "" min = "15" max = "99" required />
             <div class="invalid-feedback" data-sb-feedback="age:required">Age is required.</div>
         </div>
-        <div class="mb-3">
+
+        <div class="mb-3 col-lg-3  col-md-6 col-sm-12">
             <label class="form-label d-block">Gender</label>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" id="male" type="radio" name="gender" value = "Male" required />
@@ -122,9 +136,13 @@
             </div>
             <div class="invalid-feedback" data-sb-feedback="gender:required">One option is required.</div>
         </div>
-        <div class="mb-3">
+        
+
+    </div>  
+
+        <div class="mb-3 form_label">
             <label class="form-label" for="department">Department</label>
-            <select class="form-select" name = "dropdown_dept" id="department" aria-label="Department">
+            <select class="form-select input" name = "dropdown_dept" id="department" aria-label="Department">
                 <option value="science">Science</option>
                 <option value="arts">Arts</option>
                 <option value="commerce">Commerce</option>
@@ -133,9 +151,8 @@
             </select>
         </div>
         
-        <div class="d-grid">
-            <button class = "btn btn-primary btn-lg" id="submitButton" type="submit">Add Student</button>
-        </div>
+            <button class = "btn btn-primary btn-xs" id="submitButton" type="submit">Add Student</button>
+        
     </form>
 </div>
 

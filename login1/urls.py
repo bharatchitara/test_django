@@ -1,3 +1,4 @@
+import django
 from django import urls
 from django.urls import include, path, re_path
 from login1 import views
@@ -5,7 +6,6 @@ from login1 import views
 urlpatterns = [
     path("",views.base,name="base"),
     path("user_login/",views.user_login,name="user_login"),
-    
     path("user_login1",views.user_login1),                             ##updated login view
     path("forgot",views.forgotpassword),
     
@@ -88,14 +88,4 @@ urlpatterns = [
     re_path(r'get_all_librarians',views.get_all_librarians),
     
     path("test_page",views.test_page),
-    
-    
-    
-    
-    
-    
-    
-    
-   
-     
 ]
