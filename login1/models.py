@@ -60,6 +60,9 @@ class book_history(models.Model):
     stu_username = models.CharField(max_length=50)
     book1 = models.TextField()
     book1_allocatedon = models.DateField()
+    book1_duedate = models.DateField()
+    book1_submiton = models.DateField()
+    submit_status = models.IntegerField(null = False, default = 0)
     
     
 class librarian_data(models.Model):

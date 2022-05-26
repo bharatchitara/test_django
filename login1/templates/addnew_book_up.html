@@ -1,0 +1,213 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard - SB Admin</title>
+      
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css" />
+       <!-- <link href="css/styles.css" rel="stylesheet" />-->
+
+    <style>
+       .input{
+           width: 40%;
+       }
+
+        .form_label{
+            width: 90%;
+        }
+
+        .location{
+            margin-left: 5px;
+        }
+
+    </style>
+      
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="#">LMS</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <!--<div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>-->
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Notification</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            
+                        <div id = "admin_list">
+                        <div class="sb-sidenav-menu-heading" id = "admin_list" >Librarian</div>   <!-- admin list-->
+                                <a class="nav-link" href="/librarian_dashboard" id = "admin_list1">
+                                    <div class="sb-nav-link-icon"></div>
+                                    Dashboard
+                                </a>
+
+                                <a class="nav-link" href="/books" id = "admin_list1">
+                                    <div class="sb-nav-link-icon"></div>
+                                    Books
+                                </a>
+
+                                <a class="nav-link" href="/lib_profile" id = "admin_list1">
+                                    <div class="sb-nav-link-icon"></div>
+                                    My Profile
+                                </a>
+
+                        </div>
+                        
+                        </div>
+                    </div>
+
+
+
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as: </div>
+                        {{ u_name }}
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                      <div style = "display: block;">
+                      <h2 class="mt-4">Add new book:
+                      </h2>  
+                    </div>
+                    <p></p>
+
+<!-- remove if not working-->
+
+
+<div class="container px-5 my-5">
+    <form id="contactForm3" method="post" action="/librarian_dashboard/addnew_book/save">
+      {% csrf_token %}
+      <div class = "row">
+          
+        <div class="col-lg-4 col-md-6 col-sm-12" >
+            <label class="form-label" for="bookname1">Book Name</label>
+            <input class="form-control " id="bookname1" name = "bookname1" type="text" placeholder="Enter the book name" value = ""  required />
+            <div class="invalid-feedback" data-sb-feedback="bookname:required">book name is required.</div>
+            </div>
+     
+
+        <div class="mb-3 col-lg-4  col-md-6 col-sm-12" >
+            <label class="form-label" for="author">Author name</label>
+            <input class="form-control " id="author" name = "author" type="text" placeholder="Enter the author's full name" value = "" required />
+            <div class="invalid-feedback" data-sb-feedback="author:required">Author name is required.</div>
+        </div>
+
+        <div class="mb-3 col-lg-4  col-md-6 col-sm-12">
+            <label class="form-label" for="copies">Total copies</label>
+            <input class="form-control " id="copies" name = "copies" type="number" placeholder="" value = "" min = "1" max = "999" required />
+            <div class="invalid-feedback" data-sb-feedback="copies:required">Enter the total copies of the book.</div>
+        </div>
+
+      </div>  
+
+      <div class = "row">
+
+        <div class="mb-3 col-lg-4  col-md-6 col-sm-12">
+            <label class="form-label" for="desc">Description</label>
+            <input class="form-control " id="desc" name = "desc" type="text" placeholder="Enter the description" value = "" required />
+            <div class="invalid-feedback" data-sb-feedback="desc:required">Description is required.</div>
+
+        </div>
+        
+
+        <div class="mb-3 col-lg-4  col-md-6 col-sm-12">
+            <label class="form-label" for="department">Department</label>
+            <select class="form-select" name = "department" id="department" aria-label="Department">
+                <option value="science">Science</option>
+                <option value="arts">Arts</option>
+                <option value="commerce">Commerce</option>
+                <option value="all">Generic</option>
+                
+            </select>
+        </div>
+
+        <div class="mb-3 col-lg-4  col-md-6 col-sm-12">
+            <label class="form-label" for="location">Location</label>
+            <div class = "d-flex">Rack:<input class="form-control location" id="location" name = "location" type="number" min= "1" max = "4" placeholder="Enter the Location" value = "" required /></div>
+            <div class="invalid-feedback" data-sb-feedback="location:required">Location is required.</div>
+
+        </div>
+
+    </div>
+        
+            <button class = "btn btn-primary btn-xs" id="submitButton" type="submit">Add book</button>
+        
+    </form>
+</div>
+
+
+<!-- remove if not working-->
+
+
+                        
+                    </div>
+                </main>
+              
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">LMS version 1.0 - 2022</div>
+                            <div>
+                                <a href="#">Developer Info</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'js/scripts.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+        
+
+    {% if flag_exist == 1 %}
+        <script> alert("The Books already exist, can't be added again!") </script>
+    {% endif %}
+
+    {% if flag_book_add == 1 %}
+        <script> alert("The Book is added successfully.") </script>
+
+    {% endif %}
+
+    {% if flag_book_add == 0 %}
+    <script> alert("The Book is not added. Some error occured!") </script>
+
+    {% endif %}
+
+    </body>
+</html>

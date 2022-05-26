@@ -53,7 +53,7 @@
                             
                         <div id = "admin_list">
                         <div class="sb-sidenav-menu-heading" id = "admin_list" >Librarian</div>   <!-- lib list-->
-                            <a class="nav-link" href="#" id = "admin_list1">
+                            <a class="nav-link" href="/librarian_dashboard" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Dashboard
                             </a>
@@ -87,7 +87,10 @@
                         
                         
                         <div style = "display: block;">
-                            <h1 class="mt-4">Books </h1>  
+                            <h1 class="mt-4">Books
+                                <a href="/librarian_dashboard/addnew_book" class="btn btn-secondary float-right" style = "float: right" role="button">Add new Book</a>
+                          
+                            </h1>  
                         </div>
                         
                         
@@ -110,7 +113,7 @@
                                                 <th>Book name</th>
                                                 <th>Book Author</th>
                                                 <th>Description</th>
-                                                <th>available Copies</th>
+                                                <th>Available Copies</th>
                                                 <th>location</th>   
                                                 <th>Edit</th>
                                                 
@@ -125,13 +128,7 @@
                                                 <td><input type = "text" name = "desc" id = "desc" value = "{{ i.description }}"  style = "border: none; outline: none;width:9rem;" ></td>
                                                 <td><input type = "number" name = "total_count" value = "{{ i.total_count }}"  style = "border: none; outline: none;width:5rem;" ></td>
                                                 <td>Rack: <input type = "text" name = "location" value = "{{ i.location }}"  style = "border: none; outline: none;width:5rem;" ></td>
-                                                
-{% comment %}                                                 
-                                                <td>{{ i.book_name }}</td>
-                                                <td>{{ i.book_author }}</td>
-                                                <td>{{ i.description }}</td>
-                                                <td>{{ i.total_count }}</td>
-                                                <td>Rack:{{ i.location }}</td> {% endcomment %}
+                                               
                                                 <td> <input type = "button"  class = "edit"  name= "edit" value= "Edit" /></td>
                                                 
                                             </tr>
@@ -272,11 +269,11 @@
 
                                         if(data['success_book_data'] == 1){
                                             flag_button[i].value = "Edit";
-                                            alert("Book data of 'id:'"+get_book_id[i].value+ " is updated successfully!")
+                                            alert("Book data of 'id:"+get_book_id[i].value+ "' is updated successfully!")
 
                                         }
                                         else{
-                                            alert("Book data of 'id:'"+get_book_id[i].value+ " is not updated. Some error occured!")
+                                            alert("Book data of 'id:"+get_book_id[i].value+ "' is not updated. Some error occured!")
 
 
                                         }
