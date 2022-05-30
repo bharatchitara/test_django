@@ -53,7 +53,9 @@
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Student</div>   <!--student list-->
 
-                            <a class="nav-link" href="/dashboard">
+                            <!--<a class="nav-link" href="/dashboard">-->
+                                
+                            <a class="nav-link" href="{% url 'dashboard' u_name %}">
                                 <div class="sb-nav-link-icon"></div>
                                 Dashboard
                             </a>
@@ -63,7 +65,7 @@
                                 Issue a book
                             </a>
 
-                            <a class="nav-link" href="/stu_profile">
+                            <a class="nav-link" href="{% url 'stu_profile' u_name %}">
                                 <div class="sb-nav-link-icon"></div>
                                 My profile
                             </a>

@@ -64,17 +64,17 @@
                             
                         <div id = "admin_list">
                         <div class="sb-sidenav-menu-heading" id = "admin_list" >Librarian</div>   <!-- admin list-->
-                                <a class="nav-link" href="/librarian_dashboard" id = "admin_list1">
+                                <a class="nav-link" href="{% url 'librarian_dashboard' u_name %}" id = "admin_list1">
                                     <div class="sb-nav-link-icon"></div>
                                     Dashboard
                                 </a>
 
-                                <a class="nav-link" href="/books" id = "admin_list1">
+                                <a class="nav-link" href="{% url 'books' u_name %}" id = "admin_list1">
                                     <div class="sb-nav-link-icon"></div>
                                     Books
                                 </a>
 
-                                <a class="nav-link" href="/lib_profile" id = "admin_list1">
+                                <a class="nav-link" href="{% url 'lib_profile' u_name %}" id = "admin_list1">
                                     <div class="sb-nav-link-icon"></div>
                                     My Profile
                                 </a>
@@ -105,7 +105,7 @@
 
 
 <div class="container px-5 my-5">
-    <form id="contactForm3" method="post" action="/librarian_dashboard/addnew_book/save">
+    <form id="contactForm3" method="post" action="{% url 'addnew_book_save' u_name %}">
       {% csrf_token %}
       <div class = "row">
           

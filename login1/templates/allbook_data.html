@@ -53,7 +53,7 @@
                             
                         <div id = "admin_list">
                         <div class="sb-sidenav-menu-heading" id = "admin_list" >Librarian</div>   <!-- lib list-->
-                            <a class="nav-link" href="/librarian_dashboard" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'librarian_dashboard' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Dashboard
                             </a>
@@ -63,7 +63,7 @@
                                 Books
                             </a>
 
-                            <a class="nav-link" href="/lib_profile" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'lib_profile' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 My Profile
                             </a>
@@ -88,8 +88,8 @@
                         
                         <div style = "display: block;">
                             <h1 class="mt-4">Books
-                                <a href="/librarian_dashboard/addnew_book" class="btn btn-secondary float-right" style = "float: right" role="button">Add new Book</a>
-                          
+                                <a href="{% url 'addnew_book' u_name %}" class="btn btn-secondary float-right" style = "float: right" role="button">Add new Book</a>
+                                
                             </h1>  
                         </div>
                         
@@ -132,7 +132,7 @@
                                                 <td> <input type = "button"  class = "edit"  name= "edit" value= "Edit" /></td>
                                                 
                                             </tr>
-                                            {% endfor %}
+                                                {% endfor %}
                                         </tbody>
                                     </table>
                                 </form>

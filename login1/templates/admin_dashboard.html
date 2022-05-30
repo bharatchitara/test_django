@@ -56,12 +56,12 @@
                                 Dashboard
                             </a>
 
-                            <a class="nav-link" href="/admin_dashboard/student_management" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'student_management' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Student management
                             </a>
 
-                            <a class="nav-link" href="/admin_dashboard/librarian_management" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'librarian_management' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Librarian management
                             </a>

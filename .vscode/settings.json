@@ -3,5 +3,15 @@
         "html": "html"
     },
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true
+  
+    "python.linting.enabled": true,
+  
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+
+    "python.analysis.extraPaths": ["./login1"],
+
+    "python.autoComplete.extraPaths": ["./**"],
+   
 }

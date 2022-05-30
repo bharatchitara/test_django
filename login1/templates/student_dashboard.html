@@ -54,13 +54,14 @@
                                 Dashboard
                             </a>
 
-                            <a class="nav-link" href="/book_issue?username={{u_name}}">
+                            <!--<a class="nav-link" href="/book_issue">-->
+                            <a class="nav-link" href="{% url 'book_issue' u_name %}">
                                 
                                 <div class="sb-nav-link-icon"></div>
                                 Issue a book
                             </a>
 
-                            <a class="nav-link" href="/stu_profile">
+                            <a class="nav-link" href="{% url 'stu_profile' u_name %}">
                                 <div class="sb-nav-link-icon"></div>
                                 My profile
                             </a>
@@ -145,7 +146,7 @@
                                     </div>
                                     <p></p>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="/view_allocated_books" >View Details</a>
+                                        <a class="small text-white stretched-link" href="{% url 'view_allocated_books' u_name %}" >View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                     </div>
@@ -183,7 +184,7 @@
                                     
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="/view_new_books_added"  >View Details</a>
+                                        <a class="small text-white stretched-link" href={% url 'view_new_books_added' u_name %} >View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                     </div>

@@ -57,12 +57,12 @@
                                 Dashboard
                             </a>
 
-                            <a class="nav-link" href="/books" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'books' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Books
                             </a>
 
-                            <a class="nav-link" href="/lib_profile" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'lib_profile' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 My Profile
                             </a>

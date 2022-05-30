@@ -60,17 +60,17 @@
                             
                         <div id = "admin_list">
                         <div class="sb-sidenav-menu-heading" id = "admin_list" >Admin</div>   <!-- admin list-->
-                            <a class="nav-link" href="/admin_dashboard" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'admin_dashboard' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Dashboard
                             </a>
 
-                            <a class="nav-link" href="/admin_dashboard/student_management" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'student_management' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Student management
                             </a>
 
-                            <a class="nav-link" href="/admin_dashboard/librarian_management" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'librarian_management' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Librarian management
                             </a>
@@ -101,7 +101,7 @@
 
 
 <div class="container px-5 my-5">
-    <form id="contactForm" method="post" action="/admin_dashboard/student_management/addnew/add">
+    <form id="contactForm" method="post" action="{% url 'insert_new_student' u_name %}">
       {% csrf_token %}
       <div class = "row">
           

@@ -36,7 +36,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Notification</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="logout">Logout</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -49,17 +49,17 @@
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Student</div>   <!--student list-->
 
-                            <a class="nav-link" href="/dashboard">
+                            <a class="nav-link" href="{% url 'dashboard' u_name %}">
                                 <div class="sb-nav-link-icon"></div>
                                 Dashboard
                             </a>
 
-                            <a class="nav-link" href="/book_issue">
+                            <a class="nav-link" href="{% url 'book_issue' u_name %}">
                                 <div class="sb-nav-link-icon"></div>
                                 Issue a book
                             </a>
 
-                            <a class="nav-link" href="/stu_profile">
+                            <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"></div>
                                 My profile
                             </a>
@@ -72,7 +72,7 @@
 
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as: </div>
-                        {{ username }}
+                        {{ u_name }}
                     </div>
                 </nav>
             </div>
@@ -83,11 +83,11 @@
                         <h1 class="mt-4">My Profile</h1>
 
                           <div class="container px-5 my-5">
-                            <form id="contactForm" method="post" action="student_data/">
+                            <form id="contactForm" method="post" action="{% url 'student_data' u_name %}">
                               {% csrf_token %}
                                 <div class="mb-3">
                                     <label class="form-label" for="username">Username</label>
-                                    <input class="form-control" id="username" name = "username1" type="email" placeholder="Username" value = "{{username}}"  readonly data-sb-validations="required,email" />
+                                    <input class="form-control" id="username" name = "username1" type="email" placeholder="Username" value = "{{u_name}}"  readonly data-sb-validations="required,email" />
                                     <div class="invalid-feedback" data-sb-feedback="username:required">Username is required.</div>
                                     <div class="invalid-feedback" data-sb-feedback="username:email">Username Email is not valid.</div>
                                 </div>

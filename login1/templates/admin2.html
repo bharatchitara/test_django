@@ -50,7 +50,7 @@
                             
                         <div id = "admin_list">
                         <div class="sb-sidenav-menu-heading" id = "admin_list" >Admin</div>   <!-- admin list-->
-                            <a class="nav-link" href="/admin_dashboard" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'admin_dashboard' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Dashboard
                             </a>
@@ -60,7 +60,7 @@
                                 Student management
                             </a>
 
-                            <a class="nav-link" href="/admin_dashboard/librarian_management" id = "admin_list1">
+                            <a class="nav-link" href="{% url 'librarian_management' u_name %}" id = "admin_list1">
                                 <div class="sb-nav-link-icon"></div>
                                 Librarian management
                             </a>
@@ -85,7 +85,7 @@
                       <h2 class="mt-4">Student management:
                       
                      <!-- <button type = "button" class = "btn btn-secondary float-right" style = "float: right" type= "submit">Add new student</button>-->
-                      <a href="/admin_dashboard/student_management/addnew" class="btn btn-secondary float-right" style = "float: right" role="button">Add new student</a>
+                      <a href="{% url 'addnew_student' u_name %}" class="btn btn-secondary float-right" style = "float: right" role="button">Add new student</a>
                       </h2>  
                     </div>
                     <p></p>
