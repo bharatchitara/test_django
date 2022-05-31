@@ -1,4 +1,6 @@
 # LMS(library management system)
+![lib__admin_dashboard](https://github.com/bharatchitara/test_django/blob/master/login1/static/assets/img/lib.png)
+
 A django application for management for library containing three major roles:
 1. Student 
 2. librarian 
