@@ -4,6 +4,7 @@ import re
 import secrets
 import string
 from datetime import date
+from importlib.resources import contents
 from pickle import NONE
 
 from dateutil.relativedelta import relativedelta
@@ -15,9 +16,16 @@ from django.db import transaction
 from django.db.models import Max
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+##
+from rest_framework.views import APIView
 
 from login1.models import (book_history, books_data, librarian_data,
                            student_data, tbl_Authentication)
+
+##  
+
 
 
 # Create your views here.
@@ -31,8 +39,9 @@ my_username = ''
 class CustomException(Exception):
     def __init__(self, message="Error occured."):
         super().__init__(self.message)
-
+        
  
+
 # def user_login(request):
     
 #     if request.method == 'POST':
@@ -357,6 +366,7 @@ def user_login1(request):
             return render(request,'base2.html',{'failed_login':True})
         
 
+
 def stu_profile(request,username):
     global my_username
     
@@ -367,7 +377,8 @@ def stu_profile(request,username):
     return render(request, 'dashboard.html',
                               {'u_name': my_username,'name':st_name,'age':st_age,'gender':st_gender,'department':st_dept,'book1':book1,'book2':book2,'book3':book3})
     
-    
+
+
 def lib_profile(request,username):
     
     global my_username
@@ -448,6 +459,7 @@ def student_update(username):
     return(student_name,student_age,student_gender,student_department,book1,book2,book3)
     
 
+
 def student_management(request,username):
     global my_username
     my_username = username
@@ -456,12 +468,14 @@ def student_management(request,username):
     return render(request,'admin2.html',{'u_name':username,'fetch_student_data':fetch_student_data})  
 
 
+
 def librarian_management(request,username):
     global my_username
     my_username = username
     username = my_username
     fetch_librarian_data =  librarian_data.objects.all()
     return render(request,'get_all_librarians.html',{'u_name':username,"fetch_librarian_data": fetch_librarian_data})
+
 
 
 def getnew_librarian(request,username):
@@ -794,7 +808,8 @@ def books_count_by_month():
     return(final_book_count_list)                
 
 
- 
+
+
 def student_dashboard(request,username):
     
     global my_username 
@@ -834,7 +849,8 @@ def student_dashboard(request,username):
     
     return render(request, 'student_dashboard.html',{'u_name': my_username,'last_login':last_login,'books_count':get_books_count,'month_list':month_list,'final_book_count_list':book_count_in_dict,'books_data':books_data1,'new_books_added':new_books_added})
             
- 
+
+
 def admin_dashboard(request,username):
     
     global my_username
@@ -878,6 +894,7 @@ def admin_dashboard(request,username):
 
 
 
+
 def librarian_dashboard(request,username):
     
     global my_username
@@ -896,6 +913,7 @@ def librarian_dashboard(request,username):
     
     return render(request,'librarian_dashboard.html',{'u_name':my_username,'books_history':books_history,'last_login':last_login,'new_books_added':new_books_added,'book_less_than_10copies':book_less_than_10copies,'book_added_in_last6':book_added_in_last6,'month_list':month_list})
                 
+
 
 
 def students(request):
@@ -925,6 +943,7 @@ def calculate_month_name():
         
     return month_name,year_list
     
+
     
 def update_student(request,username):
     
@@ -1019,6 +1038,7 @@ def librarian_fetch_data(username):
 
 
 
+
 def lib_update(request):
     
     
@@ -1060,8 +1080,10 @@ def lib_update(request):
 
 
 
+
 def Updatebooksdata(request):
     return render(request,"book_data.html")
+
 
 def addbooks(request):
     
@@ -1078,6 +1100,7 @@ def addbooks(request):
 
 # class Updatebooksdata(TemplateView):  # new
 #     template_name = "book_data.html"
+
 
 
 def newbooks(request):
@@ -1143,6 +1166,7 @@ def newbooks(request):
         return HttpResponse('data')
     
     
+
     
 def student_action(request):
     
@@ -1155,6 +1179,7 @@ def student_action(request):
                 
         return render(request, 'admin.html',{'update_student_block_unblock_pass': True  ,'fetch_student_data':fetch_student_data})
     
+
     
 def book_allotment(request):
     
@@ -1170,6 +1195,7 @@ def book_allotment(request):
         return render(request,'book_issue.html',{'u_name':username,'update_allotment_pass': True , 'fetch_book_data': fetch_books_data})
     
     
+
     
 def addnew_student(request,username):
     # num = random.randrange(100000, 999999)
@@ -1178,6 +1204,8 @@ def addnew_student(request,username):
     my_username = username
     username = my_username
     return render(request,"addnew_student_up.html",{'u_name':username} ) 
+
+
 
 def insert_new_student(request):
     
@@ -1247,11 +1275,14 @@ def insert_new_student(request):
     
 
 
+
 def addnew_librarian(request):
     num = random.randrange(100000, 999999)
     print(num)
     
     return render(request,"addnew_librarian.html", {'num': num})    
+
+
 
 def insert_new_librarian(request,username):
     global my_username
@@ -1329,6 +1360,7 @@ def book_issue(request,username):
     return render(request,"book_issue.html", {'u_name':username,'fetch_book_data': fetch_book_data})
 
 
+
 def view_new_books_added(request,username):
     
     my_username = username
@@ -1342,6 +1374,7 @@ def view_new_books_added(request,username):
     fetch_book_data = books_data.objects.filter(added_on__gte = one_months_past).all()
     
     return render(request,"book_issue.html", {'u_name':my_username,'fetch_book_data': fetch_book_data})
+
 
 
 def view_allocated_books(request,username):
@@ -1441,7 +1474,9 @@ def test_user2(request):
         
         
 def submit_book(request):
-    
+    global my_username
+    my_username = request.GET['getusername']
+    print(my_username)
     book_name = request.GET['getbookname']
     print(book_name)
     
@@ -1452,24 +1487,25 @@ def submit_book(request):
     flag_book3 = 0 
     update_submit_time = 0 
     update_student_data = 0
+    flag_success = 0
     
     
     try:
         find_book_no1 = student_data.Studentdata_objects.get(username = my_username,book1 = book_name )
         flag_book1 = 1
-    except CustomException:
+    except:
         flag_book1 = 0
         
     try:
         find_book_no2 = student_data.Studentdata_objects.get(username = my_username,book2 = book_name )
         flag_book2 =  1 
-    except  CustomException:
+    except:
         flag_book2 = 0
     
     try:
         find_book_no3 = student_data.Studentdata_objects.get(username = my_username,book3 = book_name )
         flag_book3 =1 
-    except CustomException:
+    except:
         flag_book3 = 0
         
     print(flag_book1,flag_book2,flag_book3)
@@ -1479,17 +1515,20 @@ def submit_book(request):
         
         if(flag_book1 ==1 ):
             update_student_data = student_data.Studentdata_objects.filter(username = my_username).update(book1= '')
+            flag_success = 1 
         elif(flag_book2 ==1):
             update_student_data = student_data.Studentdata_objects.filter(username = my_username).update(book2= '')
+            flag_success = 1 
         elif(flag_book3 == 1):
             update_student_data= student_data.Studentdata_objects.filter(username = my_username).update(book3= '')
+            flag_success = 1 
             
     print(update_submit_time,update_student_data)
     
     
     
     
-    data= {"flag_stu_del": 1}
+    data= {"flag_stu_del": flag_success}
     return JsonResponse(data)
     
 
@@ -1509,7 +1548,7 @@ def test_book_allocate(request):
     
     try:
         check_books_status  = student_data.Studentdata_objects.get(username = my_username)     ##fetch username from global variable
-    except CustomException:
+    except:
         check_books_status  = student_data.Studentdata_objects.get(username = unameby_local)   ##fetch username from local storage 
         
 
@@ -1541,7 +1580,7 @@ def test_book_allocate(request):
                 flag_for_book1 = 1
                 
                 
-            except CustomException:
+            except:
                 update_book = student_data.Studentdata_objects.filter(username = unameby_local).update(book1= book_to_be_allot)
                 print(update_book)
                 flag_for_book1 = 1
@@ -1557,7 +1596,7 @@ def test_book_allocate(request):
                 update_book= student_data.Studentdata_objects.filter(username = my_username).update(book2= book_to_be_allot)
                 print(update_book)
                 flag_for_book2 = 1
-            except CustomException:
+            except:
                 update_book= student_data.Studentdata_objects.filter(username = unameby_local).update(book2= book_to_be_allot)
                 print(update_book)
                 flag_for_book2 = 1
@@ -1573,7 +1612,7 @@ def test_book_allocate(request):
                 print(update_student_with_book)
                 flag_for_book3 = 1
                 
-            except CustomException:
+            except:
                 update_student_with_book= student_data.Studentdata_objects.filter(username = unameby_local).update(book3= book_to_be_allot)
                 print(update_student_with_book)
                 flag_for_book3 = 1
@@ -1589,7 +1628,7 @@ def test_book_allocate(request):
         try:
             new_book_history = book_history(stu_username = my_username,book1 = book_to_be_allot, book1_allocatedon = time) 
             save_book_history = new_book_history.save()
-        except CustomException:
+        except:
             new_book_history = book_history(stu_username = unameby_local,book1 = book_to_be_allot, book1_allocatedon = time) 
             save_book_history = new_book_history.save()
         
@@ -1603,11 +1642,14 @@ def get_all_librarians(request):
     return HttpResponse('librarian data')
 
 
+
 def get_all_stu(request):
     
     fetch_student_data =  student_data.Studentdata_objects.all()
                 
     return render(request, 'admin.html',{'fetch_student_data':fetch_student_data})
+
+
         
 def forgotpassword(request):
     
@@ -1685,6 +1727,7 @@ def check_email_exist(request):
     #trigger_email = 1 
     data= {'email_flag': email_flag_pass, 'trigger_email': trigger_email}
     return JsonResponse(data)
+
 
 def signup(request):
     return render(request,'signup.html')
@@ -1791,6 +1834,7 @@ def test_page(request):
 
 
 
+
 def books(request,username):
     global my_username
     my_username = username
@@ -1798,6 +1842,7 @@ def books(request,username):
     user = my_username
     all_books_data = books_data.objects.all()
     return render(request,'allbook_data.html',{'all_books_data':all_books_data,'u_name':user})
+
 
 
 def addnew_book(request,username):
@@ -1808,6 +1853,7 @@ def addnew_book(request,username):
     
     
     return render(request,'addnew_book_up.html',{'u_name':user})
+
 
 def insert_new_book(request,username):
     global my_username

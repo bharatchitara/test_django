@@ -30,7 +30,7 @@ urlpatterns = [
     path("librarian_dashboard/addnew_book/save/<username>",views.insert_new_book,name = 'addnew_book_save'),            #save the new book in lib login
     path("logout",views.logout),
     path("dev",views.dev),
-
+    
     #####################    older links ########################
      #path("user_login/",views.student_update),
     #path("user_login/update_librarian_data/",views.UpdateLibrariandata),

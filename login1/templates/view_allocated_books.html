@@ -161,6 +161,7 @@
   console.log(get_book_name.value);
   const uname_from_Locstorage = localStorage.getItem("user");
   
+  
       
       
               for(let i = 0; i<flag_button.length; i++){
@@ -175,19 +176,20 @@
                               url: 'submit_book/',
                               data: {
                                   "getbookname": get_book_name[i].value,
+                                  "getusername": uname_from_Locstorage,
                                   
        
                               },
                               dataType: "json",
                               success: function (data) {
   
-                                  if(data["flag"] == 1 ){
+                                  if(data["flag_stu_del"] == 1 ){
                                     alert("The book is submitted successfully.");
   
                                   }
                                   else{
   
-                                  alert("The book is not submitted. Some error occured!")
+                                    alert("The book is not submitted. Some error occured!")
                                   }
                               },
                               failure: function () {
