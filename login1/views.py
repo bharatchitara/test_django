@@ -7,6 +7,7 @@ from datetime import date
 from importlib.resources import contents
 from pickle import NONE
 
+import pyrebase
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.contrib.auth.hashers import check_password, make_password
@@ -324,7 +325,7 @@ def user_login1(request):
             elif(user is not NONE and user.role == 2 and user.is_active == 1 and is_valid_email == 1):
                 
                 lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(username)
-
+            
                 last_login,new_books_added,book_less_than_10copies = librarian_data_for_dashboard(username)
                 
                 books_history = book_history.objects.all()
@@ -387,7 +388,17 @@ def lib_profile(request,username):
     lib_fetch_username,lib_name,lib_age,lib_gender = librarian_fetch_data(my_username)
     
     
-    return render(request,'lib_profile.html',{'lib_fetch_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender})
+    lib_data = {
+            "lib_fetch_username": lib_fetch_username,
+            "lib_name": lib_name,
+            "lib_age":lib_age,
+            "lib_gender": lib_gender
+            
+    }
+    
+    
+    return render(request,'lib_profile.html',{'lib_data':lib_data})
+    #return render(request,'lib_profile.html',{'lib_fetch_username':lib_fetch_username,'lib_name':lib_name,'lib_age':lib_age,'lib_gender':lib_gender})
 
 
 def librarian_data_for_dashboard(username):
@@ -919,6 +930,7 @@ def librarian_dashboard(request,username):
 def students(request):
     
     #name = request.POST.get('name')
+    
     
     print(request.GET.get('username'))
     

@@ -49,12 +49,12 @@
                         <div class="nav">
                             <div id = "admin_list">
                                 <div class="sb-sidenav-menu-heading" id = "admin_list" >Librarian</div>   <!-- lib list-->
-                                    <a class="nav-link" href="{% url 'librarian_dashboard' lib_fetch_username %}" id = "admin_list1">
+                                    <a class="nav-link" href="{% url 'librarian_dashboard' lib_data.lib_fetch_username %}" id = "admin_list1">
                                         <div class="sb-nav-link-icon"></div>
                                         Dashboard
                                     </a>
         
-                                    <a class="nav-link" href="{% url 'books' lib_fetch_username %}" id = "admin_list1">
+                                    <a class="nav-link" href="{% url 'books' lib_data.lib_fetch_username %}" id = "admin_list1">
                                         <div class="sb-nav-link-icon"></div>
                                         Books
                                     </a>
@@ -88,28 +88,28 @@
                               {% csrf_token %}
                                 <div class="mb-3">
                                     <label class="form-label" for="username">Librarian Username</label>
-                                    <input class="form-control" id="username" name = "username1" type="email" placeholder="Username" value = "{{lib_fetch_username}}"  readonly data-sb-validations="required,email" />
+                                    <input class="form-control" id="username" name = "username1" type="email" placeholder="Username" value = "{{lib_data.lib_fetch_username}}"  readonly data-sb-validations="required,email" />
                                     <div class="invalid-feedback" data-sb-feedback="username:required">Username is required.</div>
                                     <div class="invalid-feedback" data-sb-feedback="username:email">Username Email is not valid.</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="newField">Full name</label>
-                                    <input class="form-control" id="newField" name = "name" type="text" placeholder="Full name" value = "{{lib_name}}" required />
+                                    <input class="form-control" id="newField" name = "name" type="text" placeholder="Full name" value = "{{lib_data.lib_name}}" required />
                                     <div class="invalid-feedback" data-sb-feedback="newField:required">New Field is required.</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="age">Age</label>
-                                    <input class="form-control" id="age" name = "age" type="number" placeholder="Age" value = "{{lib_age}}" required />
+                                    <input class="form-control" id="age" name = "age" type="number" placeholder="Age" value = "{{lib_data.lib_age}}" required />
                                     <div class="invalid-feedback" data-sb-feedback="age:required">Age is required.</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label d-block">Gender</label>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" id="male" type="radio" name="gender" value = "Male" {% if lib_gender != 'F'%} checked {% endif %} required />
+                                        <input class="form-check-input" id="male" type="radio" name="gender" value = "Male" {% if lib_data.lib_gender != 'F'%} checked {% endif %} required />
                                         <label class="form-check-label" for="male">Male</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" id="female" type="radio" name="gender" value = "Female" {% if lib_gender != 'M'%} checked {% endif %} required />
+                                        <input class="form-check-input" id="female" type="radio" name="gender" value = "Female" {% if lib_data.lib_gender != 'M'%} checked {% endif %} required />
                                         <label class="form-check-label" for="female">Female</label>
                                     </div>
                                     <div class="invalid-feedback" data-sb-feedback="gender:required">One option is required.</div>
