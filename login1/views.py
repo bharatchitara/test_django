@@ -1727,7 +1727,7 @@ def check_email_exist(request):
     
     if(email_flag_pass == 1):
         send_mail(
-            'LMS: Reset password',
+            'LMS version1.0: Reset password',
             send_message,
             email_from,
             [getemail,],
